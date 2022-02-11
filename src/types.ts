@@ -1,0 +1,1 @@
+export type CupSize = 'S' | 'M' | 'L' | 'XL'

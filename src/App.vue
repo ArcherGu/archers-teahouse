@@ -1,21 +1,33 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+    <div class="h-full flex-center bg-green-400">
+        <Cup :size="cupSize">{{ cupSize }}</Cup>
+
+        <button @click="triggerCupSize">切换尺寸</button>
+    </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<script setup lang="ts">
+import { ref } from "vue";
+import { Cup } from "./components/BaseTea";
+import type { CupSize } from "./types";
+const cupSize = ref<CupSize>('M');
+
+const triggerCupSize = () => {
+    if (cupSize.value === 'S') {
+        cupSize.value = 'M'
+    }
+    else if (cupSize.value === 'M') {
+        cupSize.value = 'L'
+    }
+    else if (cupSize.value === 'L') {
+        cupSize.value = 'XL'
+    }
+    else {
+        cupSize.value = 'S'
+    }
 }
+
+</script>
+
+<style lang="less">
 </style>

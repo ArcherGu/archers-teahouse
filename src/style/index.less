@@ -1,0 +1,56 @@
+:root {
+    --c-bg: #fff;
+    --c-card-bg: #fff;
+    --c-scrollbar: #ccc;
+    --c-scrollbar-hover: #aaa;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+        'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--c-bg);
+    --animate-duration: 0.5s;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+* {
+    scrollbar-color: var(--c-scrollbar) var(--c-card-bg);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 6px;
+    width: 100px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--c-card-bg);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--c-scrollbar);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--c-scrollbar-hover);
+}
+
+.flex-center {
+    @apply flex items-center justify-center;
+}
