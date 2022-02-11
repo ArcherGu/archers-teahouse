@@ -25,16 +25,15 @@ const cupSizeObj = computed(() => {
     switch (props.size) {
         case 'S':
             obj.height = "200px";
+            obj.width = "120px";
             break;
         case 'L':
             obj.height = "300px";
-            break;
-        case 'XL':
-            obj.height = "350px";
-            obj.width = "250px";
-            obj.perspective = "25px"
+            obj.width = "150px";
             break;
         default:
+            obj.height = "250px";
+            obj.width = "150px";
             break;
     }
 
@@ -57,7 +56,7 @@ const cupSizeObj = computed(() => {
     border-top: none;
     border-radius: 0 0 5px 5px;
     transform: perspective(var(--cup-perspective)) rotateX(-1deg);
-    z-index: 1000;
+    z-index: 5;
     box-shadow: 10px 10px 25px 15px rgba(0, 0, 0, 0.2);
     &:after {
         content: "";
@@ -72,7 +71,16 @@ const cupSizeObj = computed(() => {
             transparent 50%,
             var(--cup-glass) 66%
         );
-        z-index: 1000;
+        z-index: 11;
+    }
+
+    .base-tea {
+        position: absolute;
+        width: calc(var(--cup-width) - 10px);
+        height: calc(var(--cup-height) - 20px);
+        bottom: 0;
+        overflow: hidden;
+        z-index: 10;
     }
 }
 </style>

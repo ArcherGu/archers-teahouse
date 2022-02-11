@@ -1,46 +1,3 @@
-<template>
-    <div class="wrapper">
-        <div class="glass">
-            <div class="liquid">
-                <div class="cube cube1"></div>
-                <div class="cube cube2"></div>
-                <div class="cube cube3"></div>
-                <div class="half-lemon lemon1">
-                    <div class="seeds seed1"></div>
-                    <div class="seeds seed2"></div>
-                    <div class="seeds seed3"></div>
-                    <div class="seeds seed4"></div>
-                </div>
-                <div class="half-lemon lemon2">
-                    <div class="seeds seed1"></div>
-                    <div class="seeds seed2"></div>
-                    <div class="seeds seed3"></div>
-                    <div class="seeds seed4"></div>
-                </div>
-                <div class="leaf"></div>
-                <div class="bubble bubble1"></div>
-                <div class="bubble bubble2"></div>
-                <div class="bubble bubble3"></div>
-                <div class="bubble bubble4"></div>
-            </div>
-            <div class="straw"></div>
-            <div class="liquid liquid2"></div>
-        </div>
-        <div class="full-lemon">
-            <div class="seed seed1"></div>
-            <div class="seed seed2"></div>
-            <div class="seed seed3"></div>
-            <div class="seed seed4"></div>
-            <div class="seed seed5"></div>
-            <div class="seed seed6"></div>
-        </div>
-    </div>
-</template>
-
-<script setup lang="ts">
-</script>
-
-<style lang="less">
 * {
     padding: 0;
     margin: 0;
@@ -64,17 +21,13 @@
         z-index: 1000;
         box-shadow: 10px 10px 25px 15px rgba(0, 0, 0, 0.2);
         &:after {
-            content: "";
+            content: '';
             width: 150px;
             height: 30px;
             background: transparent;
             position: absolute;
             bottom: 0;
-            background: radial-gradient(
-                100% 120% at top,
-                transparent 50%,
-                #fff 51%
-            );
+            background: radial-gradient(100% 120% at top, transparent 50%, #fff 51%);
             z-index: 1000;
         }
         .liquid {
@@ -188,31 +141,27 @@
         .bubble1 {
             width: 10px;
             height: 10px;
-            animation: bubbleAnimation 1s ease-in infinite,
-                sideways 0.5s ease-in infinite alternate;
+            animation: bubbleAnimation 1s ease-in infinite, sideways 0.5s ease-in infinite alternate;
             left: 20%;
         }
         .bubble2 {
             width: 12px;
             height: 12px;
             left: 30%;
-            animation: bubbleAnimation 1.5s ease-in infinite,
-                sideways 0.3s ease-in infinite alternate;
+            animation: bubbleAnimation 1.5s ease-in infinite, sideways 0.3s ease-in infinite alternate;
         }
         .bubble3 {
             width: 8px;
             height: 8px;
             left: 70%;
-            animation: bubbleAnimation 3.5s ease-in infinite,
-                sideways 0.5s ease-in infinite alternate;
+            animation: bubbleAnimation 3.5s ease-in infinite, sideways 0.5s ease-in infinite alternate;
         }
 
         .bubble4 {
             width: 8px;
             height: 8px;
             left: 90%;
-            animation: bubbleAnimation 2.5s ease-in infinite,
-                sideways 1s ease-in infinite alternate;
+            animation: bubbleAnimation 2.5s ease-in infinite, sideways 1s ease-in infinite alternate;
         }
         .leaf {
             width: 40px;
@@ -227,15 +176,11 @@
             z-index: 10;
             animation: floatLeaf 5s ease-in alternate infinite;
             &:after {
-                content: "";
+                content: '';
                 position: absolute;
                 height: 120px;
                 width: 60px;
-                background-image: linear-gradient(
-                    65deg,
-                    #064436 50%,
-                    #145e49 50%
-                );
+                background-image: linear-gradient(65deg, #064436 50%, #145e49 50%);
             }
         }
     }
@@ -337,4 +282,3 @@
         transform: translateY(-10px) rotate(0);
     }
 }
-</style>
