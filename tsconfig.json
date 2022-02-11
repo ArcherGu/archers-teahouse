@@ -18,7 +18,10 @@
             "@/*": [
                 "src/*"
             ],
-        }
+        },
+        "types": [
+            "unplugin-icons/types/vue",
+        ]
     },
     "include": [
         "src/**/*.ts",

@@ -1,11 +1,23 @@
 <template>
     <div class="h-full bg-gray-300">
         <div class="header p-10px relative">
-            <div class="mt-2">
+            <div class="mt-1">
                 <img :src="logo" alt="不上茶屋" class="h-40px" />
 
-                <div class="text-gray-400 ml-2 mt-1">假装这里有一家奶茶店 😂</div>
-                <div></div>
+                <div class="text-gray-400 ml-2 mt-1">
+                    假装这里有一家奶茶店
+                    <i-twemoji-rolling-on-the-floor-laughing class="inline-block mx-1" />
+                </div>
+                <div class="text-sm ml-2 mt-1 border-2 border-black rounded-2px inline-block pr-2">
+                    <div class="flex items-center">
+                        <i-icon-park-shop class="inline-block mx-1" v-if="!isHimself" />
+                        <i-icon-park-sleep class="inline-block mx-1" v-else />
+
+                        <span
+                            class="border-l-2 border-black pl-2"
+                        >{{ isHimself ? '请在梦中享受您的茶饮' : '这是一杯永远无法送达的茶饮' }}</span>
+                    </div>
+                </div>
             </div>
             <div class="absolute right-110px top-40px">
                 <WaySwitch v-model:value="isHimself" />
