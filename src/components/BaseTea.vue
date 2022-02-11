@@ -37,7 +37,7 @@
 import { computed } from 'vue';
 import type { TeaType } from '@/types';
 import type { PropType } from 'vue';
-import { BASE_TEA } from './index';
+import { BASE_TEA } from '@/store/tea';
 
 const props = defineProps({
     teaType: {
