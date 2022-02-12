@@ -49,6 +49,7 @@ const cupSizeObj = computed(() => {
     --cup-height: v-bind("cupSizeObj.height");
     --cup-perspective: v-bind("cupSizeObj.perspective");
 
+    @apply shadow-2xl;
     position: relative;
     width: var(--cup-width);
     height: var(--cup-height);
@@ -57,7 +58,6 @@ const cupSizeObj = computed(() => {
     border-radius: 0 0 5px 5px;
     transform: perspective(var(--cup-perspective)) rotateX(-1deg);
     z-index: 5;
-    box-shadow: 10px 10px 25px 15px rgba(0, 0, 0, 0.2);
     &:after {
         content: "";
         width: var(--cup-width);

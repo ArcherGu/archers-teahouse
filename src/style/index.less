@@ -3,6 +3,16 @@
     --c-card-bg: #f3f4f6;
     --c-scrollbar: #ccc;
     --c-scrollbar-hover: #aaa;
+    --header-height: 120px;
+    --selector-item-height: 100px;
+    --selector-item-width: 80px;
+    @media (max-width: 767.9px) {
+        --selector-item-height: 80px;
+        --selector-item-width: 60px;
+    }
+
+    --slide-x-distance: translateX(-500px);
+    --slide-y-distance: translateY(500px);
 }
 
 body {
@@ -53,4 +63,21 @@ body,
 
 .flex-center {
     @apply flex items-center justify-center;
+}
+
+.slide-x-enter-active,
+.slide-x-leave-active,
+.slide-y-enter-active,
+.slide-y-leave-active {
+    transition: all 0.5s ease;
+}
+
+.slide-x-enter-from,
+.slide-x-leave-to {
+    transform: var(--slide-x-distance);
+}
+
+.slide-y-enter-from,
+.slide-y-leave-to {
+    transform: var(--slide-y-distance);
 }

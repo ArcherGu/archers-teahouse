@@ -6,4 +6,10 @@ export const teaProps = reactive<TeaProps>({
     teaType: 'milk tea'
 })
 
-export const makeStep = ref<MakeStep>('BASE')
+export const makeStep = ref<MakeStep>('BASE');
+
+
+export function changeStep(step: MakeStep) {
+    makeStep.value = step
+}
+
