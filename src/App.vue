@@ -25,7 +25,6 @@
         </div>
         <div class="tea-type-selector" :class="{ disabled: makeStep !== MAKE_STEP.BASE }">
             <div class="tea-type-selector-wrapper">
-                <div class="item-tab"></div>
                 <div
                     v-for="item in BASE_TEA_ITEMS"
                     class="tea-type-item cursor-pointer"
@@ -104,7 +103,7 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
 }
 
 .tea-type-selector {
-    @apply bg-gray-100 w-100px absolute top-120px left-0 <md:w-80px;
+    @apply bg-gray-100 w-100px absolute top-120px left-0 <md:w-80px flex items-center justify-center;
     height: calc(100vh - 120px);
     transition: all 0.5s ease;
     z-index: 50;
@@ -114,7 +113,7 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
     }
 
     .tea-type-selector-wrapper {
-        @apply my-10px relative pl-10px overflow-y-auto w-full;
+        @apply p-10px relative overflow-y-auto;
 
         max-height: calc(100vh - 120px);
         .tea-type-item {
@@ -126,7 +125,8 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
             }
         }
 
-        & .item-tab {
+        &::before {
+            content: "";
             --item-tab-offset: 100px;
             @media (max-width: 767.9px) {
                 --item-tab-offset: 80px;
@@ -134,7 +134,7 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
             content: "";
             position: absolute;
             @apply h-100px w-80px bg-white rounded-lg shadow-lg <md:w-60px <md:h-80px;
-            left: 10px;
+
             top: calc(var(--item-tab-offset) * v-bind(activeIndex));
             transition: all 0.2s ease;
         }
