@@ -10,7 +10,7 @@
 import Cup from "./Cup.vue";
 import BaseTea from "./BaseTea.vue";
 import { toRefs } from "vue";
-import { teaProps } from "@/store/tea";
+import { teaProps } from "@/store";
 
 
 const { cupSize, teaType } = toRefs(teaProps)

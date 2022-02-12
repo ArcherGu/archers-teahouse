@@ -4,11 +4,11 @@
             <div class="mt-1">
                 <img :src="logo" alt="不上茶屋" class="h-40px" />
 
-                <div class="text-gray-400 ml-2 mt-1">
+                <div class="text-gray-400 ml-1 mt-1">
                     假装这里有一家奶茶店
                     <i-twemoji-rolling-on-the-floor-laughing class="inline-block mx-1" />
                 </div>
-                <div class="text-sm ml-2 mt-1 border-2 border-black rounded-2px inline-block pr-2">
+                <div class="text-sm ml-1 mt-1 border-2 border-black rounded-2px inline-block pr-2">
                     <div class="flex items-center">
                         <i-icon-park-shop class="inline-block mx-1" v-if="!isHimself" />
                         <i-icon-park-sleep class="inline-block mx-1" v-else />
@@ -23,26 +23,40 @@
                 <WaySwitch v-model:value="isHimself" />
             </div>
         </div>
-        <div class="tea-type-selector">
-            <div class></div>
-            <div></div>
+        <div class="tea-type-selector flex-center">
+            <div class="tea-type-selector-wrapper">
+                <div class="item-tab"></div>
+                <div
+                    v-for="item in BASE_TEA_ITEMS"
+                    class="tea-type-item cursor-pointer"
+                    :class="{ active: teaType === item.type }"
+                    :key="item.type"
+                    @click="triggerTeaType(item.type)"
+                >
+                    <div>
+                        <div class="flex-center">
+                            <component :is="item.icon" class="text-3xl" />
+                        </div>
+                        <div class="flex-center mt-2">{{ item.name }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="tea-wrapper">
             <Tea />
         </div>
 
         <button @click="triggerCupSize" class="mr-4">切换尺寸: {{ teaProps.cupSize }}</button>
-
-        <button @click="triggerBaseTea">切换底茶: {{ teaProps.teaType }}</button>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Tea, WaySwitch } from "./components";
-import { teaProps } from "./store/tea";
+import { teaProps } from "./store";
 import type { TeaType } from "./types";
 import logo from "@/assets/logo.png";
-import { ref } from "vue";
+import { computed, ref, toRefs } from "vue";
+import { BASE_TEA_ITEMS } from "./config";
 
 const isHimself = ref(false);
 
@@ -58,16 +72,13 @@ const triggerCupSize = () => {
     }
 }
 
-const teaTypes: TeaType[] = ['milk', 'red', 'green', 'milk tea', 'coffee', 'soda'];
-let teaTypesIndex = 0;
-const triggerBaseTea = () => {
-    teaTypesIndex++;
-    if (teaTypesIndex >= teaTypes.length) {
-        teaTypesIndex = 0;
-    }
-
-    teaProps.teaType = teaTypes[teaTypesIndex];
+const triggerTeaType = (type: TeaType) => {
+    teaProps.teaType = type;
 }
+
+const { teaType } = toRefs(teaProps);
+
+const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaProps.teaType));
 
 </script>
 
@@ -77,7 +88,29 @@ const triggerBaseTea = () => {
 }
 
 .tea-type-selector {
-    @apply bg-gray-100 h-full w-100px absolute top-120px left-0 z-1;
+    @apply bg-gray-100 w-100px absolute top-120px left-0;
+    height: calc(100vh - 120px);
+
+    .tea-type-selector-wrapper {
+        position: relative;
+        .tea-type-item {
+            @apply h-100px w-80px flex items-center justify-center text-gray-400 relative;
+            transition: all 0.2s ease;
+
+            &.active {
+                @apply text-gray-700;
+            }
+        }
+
+        & .item-tab {
+            content: "";
+            position: absolute;
+            @apply h-100px w-80px bg-white rounded-lg shadow-lg;
+            left: 0px;
+            top: calc(100px * v-bind(activeIndex));
+            transition: all 0.2s ease;
+        }
+    }
 }
 
 .tea-wrapper {
