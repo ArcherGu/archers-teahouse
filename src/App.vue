@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="absolute right-110px top-40px">
+            <div class="absolute right-10px top-45px">
                 <WaySwitch v-model:value="isHimself" />
             </div>
         </div>
