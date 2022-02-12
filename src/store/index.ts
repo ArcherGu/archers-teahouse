@@ -1,4 +1,4 @@
-import { TeaProps, BaseTeaProps, TeaType, MAKE_STEP } from "@/types";
+import { TeaProps, MakeStep } from "@/types";
 import { reactive, ref } from "vue";
 
 export const teaProps = reactive<TeaProps>({
@@ -6,4 +6,4 @@ export const teaProps = reactive<TeaProps>({
     teaType: 'milk tea'
 })
 
-export const makeStep = ref<MAKE_STEP>(MAKE_STEP.BASE)
+export const makeStep = ref<MakeStep>('BASE')
