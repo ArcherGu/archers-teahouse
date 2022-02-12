@@ -23,7 +23,10 @@
                 <WaySwitch v-model:value="isHimself" />
             </div>
         </div>
-        <div class="tea-type-selector flex-center">
+        <div
+            class="tea-type-selector flex-center"
+            :class="{ disabled: makeStep !== MAKE_STEP.BASE }"
+        >
             <div class="tea-type-selector-wrapper">
                 <div class="item-tab"></div>
                 <div
@@ -43,21 +46,33 @@
             </div>
         </div>
         <div class="tea-wrapper">
-            <Tea />
-        </div>
+            <div class="mt-10">
+                <Tea />
+                <button
+                    class="diy-btn"
+                    :class="{ disabled: makeStep !== MAKE_STEP.BASE }"
+                    @click="changeStep(MAKE_STEP.DIY)"
+                >开始定制</button>
 
-        <button @click="triggerCupSize" class="mr-4">切换尺寸: {{ teaProps.cupSize }}</button>
+                <button
+                    class="back-base"
+                    v-if="makeStep === MAKE_STEP.DIY"
+                    @click="changeStep(MAKE_STEP.BASE)"
+                >
+                    <i-akar-icons-arrow-back />
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Tea, WaySwitch } from "./components";
-import { teaProps } from "./store";
-import type { TeaType } from "./types";
+import { teaProps, makeStep } from "./store";
+import { MAKE_STEP, TeaType } from "./types";
 import logo from "@/assets/logo.png";
 import { computed, ref, toRefs } from "vue";
 import { BASE_TEA_ITEMS } from "./config";
-
 const isHimself = ref(false);
 
 const triggerCupSize = () => {
@@ -76,6 +91,10 @@ const triggerTeaType = (type: TeaType) => {
     teaProps.teaType = type;
 }
 
+const changeStep = (step: MAKE_STEP) => {
+    makeStep.value = step;
+}
+
 const { teaType } = toRefs(teaProps);
 
 const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaProps.teaType));
@@ -90,6 +109,13 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
 .tea-type-selector {
     @apply bg-gray-100 w-100px absolute top-120px left-0;
     height: calc(100vh - 120px);
+    transition: all 0.5s ease;
+    overflow-y: auto;
+    z-index: 50;
+
+    &.disabled {
+        transform: translateX(-100px);
+    }
 
     .tea-type-selector-wrapper {
         position: relative;
@@ -114,6 +140,26 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
 }
 
 .tea-wrapper {
-    @apply flex items-center justify-center h-full w-full pl-100px pt-120px;
+    @apply flex items-center justify-center h-full w-full pl-100px pt-120px relative;
+    transition: all 0.5s ease;
+    padding-left: v-bind('makeStep === MAKE_STEP.BASE? "100px" : "0px"');
+
+    .diy-btn {
+        @apply w-full rounded-xl bg-cyan-500 h-15 text-white font-bold mt-10 shadow-xl;
+        transition: all 0.5s ease;
+        &.disabled {
+            transform: translateY(50vh);
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            @apply bg-cyan-600;
+        }
+    }
+
+    .back-base {
+        @apply absolute top-130px left-10px text-3xl text-gray-400;
+    }
 }
 </style>

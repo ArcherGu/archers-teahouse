@@ -21,3 +21,10 @@ export interface BaseTeaItem {
     type: TeaType;
     icon: FunctionalComponent
 }
+
+
+export enum MAKE_STEP {
+    BASE,
+    DIY,
+    ORDER
+}
