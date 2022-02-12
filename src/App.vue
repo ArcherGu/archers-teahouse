@@ -38,7 +38,7 @@
                 >
                     <div>
                         <div class="flex-center">
-                            <component :is="item.icon" class="text-3xl" />
+                            <component :is="item.icon" class="text-3xl <md:text-2xl" />
                         </div>
                         <div class="flex-center mt-2">{{ item.name }}</div>
                     </div>
@@ -107,10 +107,9 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
 }
 
 .tea-type-selector {
-    @apply bg-gray-100 w-100px absolute top-120px left-0;
+    @apply bg-gray-100 w-100px absolute top-120px left-0 <md:w-80px;
     height: calc(100vh - 120px);
     transition: all 0.5s ease;
-    overflow-y: auto;
     z-index: 50;
 
     &.disabled {
@@ -118,9 +117,13 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
     }
 
     .tea-type-selector-wrapper {
+        max-height: calc(100vh - 120px);
+        width: 100%;
+        overflow-y: auto;
         position: relative;
+        padding-left: 10px;
         .tea-type-item {
-            @apply h-100px w-80px flex items-center justify-center text-gray-400 relative;
+            @apply h-100px w-80px flex items-center justify-center text-gray-400 relative <md:w-60px <md:h-80px;
             transition: all 0.2s ease;
 
             &.active {
@@ -129,11 +132,15 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
         }
 
         & .item-tab {
+            --item-tab-offset: 100px;
+            @media (max-width: 767.9px) {
+                --item-tab-offset: 80px;
+            }
             content: "";
             position: absolute;
-            @apply h-100px w-80px bg-white rounded-lg shadow-lg;
-            left: 0px;
-            top: calc(100px * v-bind(activeIndex));
+            @apply h-100px w-80px bg-white rounded-lg shadow-lg <md:w-60px <md:h-80px;
+            left: 10px;
+            top: calc(var(--item-tab-offset) * v-bind(activeIndex));
             transition: all 0.2s ease;
         }
     }
@@ -145,7 +152,7 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
     padding-left: v-bind('makeStep === MAKE_STEP.BASE? "100px" : "0px"');
 
     .diy-btn {
-        @apply w-full rounded-xl bg-cyan-500 h-15 text-white font-bold mt-10 shadow-xl;
+        @apply w-full rounded-xl bg-cyan-500 h-15 text-white font-bold mt-10 shadow-xl <md:h-12;
         transition: all 0.5s ease;
         &.disabled {
             transform: translateY(50vh);
