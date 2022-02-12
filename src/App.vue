@@ -23,10 +23,7 @@
                 <WaySwitch v-model:value="isHimself" />
             </div>
         </div>
-        <div
-            class="tea-type-selector flex-center"
-            :class="{ disabled: makeStep !== MAKE_STEP.BASE }"
-        >
+        <div class="tea-type-selector" :class="{ disabled: makeStep !== MAKE_STEP.BASE }">
             <div class="tea-type-selector-wrapper">
                 <div class="item-tab"></div>
                 <div
@@ -117,11 +114,9 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
     }
 
     .tea-type-selector-wrapper {
+        @apply my-10px relative pl-10px overflow-y-auto w-full;
+
         max-height: calc(100vh - 120px);
-        width: 100%;
-        overflow-y: auto;
-        position: relative;
-        padding-left: 10px;
         .tea-type-item {
             @apply h-100px w-80px flex items-center justify-center text-gray-400 relative <md:w-60px <md:h-80px;
             transition: all 0.2s ease;
