@@ -59,6 +59,7 @@ const baseTeaObj = computed(() => {
     position: relative;
     .wave-wrapper {
         .wave {
+            transition: all 1s ease;
             animation: wave-action 2s linear infinite;
 
             fill: var(--base-tea-color);
@@ -74,14 +75,14 @@ const baseTeaObj = computed(() => {
         }
     }
 
-    .bubble {
-        border-radius: 40px;
-        background: rgba(255, 255, 255, 0.4);
-        position: absolute;
-        animation-delay: 1s;
-    }
-
     .bubble-wrapper {
+        .bubble {
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            position: absolute;
+            animation-delay: 1s;
+        }
+
         .bubble1 {
             width: 10px;
             height: 10px;
