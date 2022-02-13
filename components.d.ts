@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BaseTea: typeof import('./src/components/BaseTea.vue')['default']
     Bubble: typeof import('./src/components/items/Bubble.vue')['default']
+    CoconutFruitCube: typeof import('./src/components/items/CoconutFruitCube.vue')['default']
     Cup: typeof import('./src/components/Cup.vue')['default']
     IAkarIconsArrowBack: typeof import('~icons/akar-icons/arrow-back')['default']
     ICarbonChartBubblePacked: typeof import('~icons/carbon/chart-bubble-packed')['default']

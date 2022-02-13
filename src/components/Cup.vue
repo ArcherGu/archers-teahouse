@@ -24,15 +24,15 @@ const cupSizeObj = computed(() => {
     }
     switch (props.size) {
         case 'S':
-            obj.height = "200px";
-            obj.width = "120px";
+            obj.height = "240px";
+            obj.width = "150px";
             break;
         case 'L':
-            obj.height = "300px";
+            obj.height = "320px";
             obj.width = "150px";
             break;
         default:
-            obj.height = "250px";
+            obj.height = "280px";
             obj.width = "150px";
             break;
     }
