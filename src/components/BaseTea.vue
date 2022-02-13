@@ -26,16 +26,8 @@
             </svg>
         </div>
 
-        <div class="bubble-wrapper" v-if="!!baseTeaObj.bubble">
-            <div class="bubble bubble1"></div>
-            <div class="bubble bubble2"></div>
-            <div class="bubble bubble3"></div>
-            <div class="bubble bubble4"></div>
-        </div>
-
-        <div class="leaf-wrapper" v-if="!!baseTeaObj.leaf">
-            <div class="leaf" :class="teaType"></div>
-        </div>
+        <Bubble v-if="!!baseTeaObj.bubble" />
+        <Leaf v-if="!!baseTeaObj.leaf" :teaType="teaType" />
     </div>
 </template>
 
@@ -44,6 +36,8 @@ import { computed } from 'vue';
 import type { TeaType } from '@/types';
 import type { PropType } from 'vue';
 import { BASE_TEA } from '@/config';
+import { Bubble, Leaf } from './items';
+
 
 const props = defineProps({
     teaType: {
@@ -74,115 +68,6 @@ const baseTeaObj = computed(() => {
             }
             100% {
                 transform: translate(0, 0);
-            }
-        }
-    }
-
-    .bubble-wrapper {
-        .bubble {
-            border-radius: 40px;
-            background: rgba(255, 255, 255, 0.4);
-            position: absolute;
-            animation-delay: 1s;
-        }
-
-        .bubble1 {
-            width: 10px;
-            height: 10px;
-            animation: bubbleAnimation 1s ease-in infinite,
-                sideways 0.5s ease-in infinite alternate;
-            left: 20%;
-        }
-        .bubble2 {
-            width: 12px;
-            height: 12px;
-            left: 30%;
-            animation: bubbleAnimation 1.5s ease-in infinite,
-                sideways 0.3s ease-in infinite alternate;
-        }
-        .bubble3 {
-            width: 8px;
-            height: 8px;
-            left: 70%;
-            animation: bubbleAnimation 3.5s ease-in infinite,
-                sideways 0.5s ease-in infinite alternate;
-        }
-        .bubble4 {
-            width: 8px;
-            height: 8px;
-            left: 90%;
-            animation: bubbleAnimation 2.5s ease-in infinite,
-                sideways 1s ease-in infinite alternate;
-        }
-
-        @keyframes bubbleAnimation {
-            from {
-                bottom: -15%;
-            }
-            to {
-                bottom: 110%;
-            }
-        }
-    }
-
-    .leaf-wrapper {
-        .leaf {
-            width: 40px;
-            height: 80px;
-            border-radius: 0 100% 0 100%;
-            position: absolute;
-            transform: rotate(190deg);
-            overflow: hidden;
-            z-index: 10;
-            &:after {
-                content: "";
-                position: absolute;
-                height: 120px;
-                width: 60px;
-            }
-        }
-
-        .green.leaf {
-            bottom: 12px;
-            left: 6px;
-            animation: greenFloatLeaf 5s ease-in alternate infinite;
-            &:after {
-                background-image: linear-gradient(
-                    65deg,
-                    #168168 50%,
-                    #2d9174 50%
-                );
-            }
-        }
-
-        .red.leaf {
-            bottom: -10px;
-            right: 23px;
-            animation: redFloatLeaf 5s ease-in alternate infinite;
-            &:after {
-                background-image: linear-gradient(
-                    65deg,
-                    #992b3a 50%,
-                    #743542 50%
-                );
-            }
-        }
-
-        @keyframes greenFloatLeaf {
-            from {
-                transform: translateY(-20px) rotate(-10deg);
-            }
-            to {
-                transform: translateY(-10px) rotate(0);
-            }
-        }
-
-        @keyframes redFloatLeaf {
-            from {
-                transform: translateY(-20px) rotate(-100deg);
-            }
-            to {
-                transform: translateY(-10px) rotate(-90deg);
             }
         }
     }

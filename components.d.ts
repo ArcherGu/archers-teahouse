@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     BaseTea: typeof import('./src/components/BaseTea.vue')['default']
+    Bubble: typeof import('./src/components/items/Bubble.vue')['default']
     Cup: typeof import('./src/components/Cup.vue')['default']
     IAkarIconsArrowBack: typeof import('~icons/akar-icons/arrow-back')['default']
     ICarbonChartBubblePacked: typeof import('~icons/carbon/chart-bubble-packed')['default']
@@ -24,6 +25,7 @@ declare module 'vue' {
     ITeenyiconsShopOutline: typeof import('~icons/teenyicons/shop-outline')['default']
     ITwemojiRollingOnTheFloorLaughing: typeof import('~icons/twemoji/rolling-on-the-floor-laughing')['default']
     IUilBackspace: typeof import('~icons/uil/backspace')['default']
+    Leaf: typeof import('./src/components/items/Leaf.vue')['default']
     Tea: typeof import('./src/components/Tea.vue')['default']
     WaySwitch: typeof import('./src/components/WaySwitch.vue')['default']
   }
