@@ -1,4 +1,4 @@
-import type { BaseTeaItem, BaseTeaProps, DiyItemParams, TeaType } from "@/types";
+import type { BaseTeaItem, BaseTeaProps, CupSize, DiyItemParams, TeaType } from "@/types";
 import IIconParkOutlineMilk from '~icons/icon-park-outline/milk';
 import ITablerCup from '~icons/tabler/cup'
 import ITablerCoffee from '~icons/tabler/coffee';
@@ -9,28 +9,29 @@ import { CoconutFruit, Pearl, Pudding, Ice } from "@/assets/svg";
 
 export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
     'milk': {
-        color: "rgb(255 255 255 / 70%)",
-        linearColor: "rgb(255 255 255 / 100%)",
+        color: "rgb(255 255 255 / 60%)",
     },
     'red': {
-        color: "rgb(200 49 49 / 70%)",
-        linearColor: "rgb(136 23 23 / 80%)",
+        color: "rgb(177 9 9 / 50%)",
+        linearColor: "rgb(177 9 9 / 60%)",
         leaf: true,
     },
     'green': {
-        color: "rgb(49 167 80 / 60%)",
-        linearColor: "rgb(54 135 70 / 90%)",
+        color: "rgb(118 193 29 / 50%)",
+        linearColor: "rgb(29 86 2 / 50%)",
         leaf: true,
     },
     'milk tea': {
-        color: "rgb(209 192 191 / 70%)",
+        color: "rgb(249 205 158 / 50%)",
+        linearColor: "rgb(249 205 158 / 60%)"
     },
     'coffee': {
-        color: "rgb(135 98 79 / 80%)",
-        linearColor: "rgb(110 97 85)",
+        color: "rgb(96 39 2 / 60%)",
+        linearColor: "rgb(106 45 5 / 70%)",
     },
     'soda': {
-        color: "rgb(115 198 140 / 50%)",
+        color: "rgb(255 255 159 / 30%)",
+        linearColor: "rgb(54 135 70 / 30%)",
         bubble: true,
     }
 }
@@ -95,3 +96,9 @@ export const DIY_ITEMS: DiyItemParams[] = [
         bgColor: '#0ea5e9'
     }
 ]
+
+export const ICE_CUBE_SIZE: { [key in CupSize]: string } = {
+    'S': "48px",
+    'M': '60px',
+    'L': '60px'
+}

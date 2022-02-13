@@ -80,7 +80,7 @@ const cupSizeObj = computed(() => {
         height: calc(var(--cup-height) - 20px);
         bottom: 0;
         overflow: hidden;
-        z-index: 10;
+        z-index: 100;
     }
 }
 </style>

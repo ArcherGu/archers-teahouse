@@ -38,7 +38,6 @@ import type { PropType } from 'vue';
 import { BASE_TEA } from '@/config';
 import { Bubble, Leaf } from './items';
 
-
 const props = defineProps({
     teaType: {
         type: String as PropType<TeaType>,

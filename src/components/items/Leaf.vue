@@ -37,7 +37,7 @@ const props = defineProps({
     }
 
     .green.leaf {
-        bottom: 12px;
+        top: 15%;
         left: 6px;
         animation: greenFloatLeaf 5s ease-in alternate infinite;
         &:after {
@@ -46,7 +46,7 @@ const props = defineProps({
     }
 
     .red.leaf {
-        bottom: -10px;
+        top: 10%;
         right: 23px;
         animation: redFloatLeaf 5s ease-in alternate infinite;
         &:after {

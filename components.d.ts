@@ -9,6 +9,7 @@ declare module 'vue' {
     Cup: typeof import('./src/components/Cup.vue')['default']
     IAkarIconsArrowBack: typeof import('~icons/akar-icons/arrow-back')['default']
     ICarbonChartBubblePacked: typeof import('~icons/carbon/chart-bubble-packed')['default']
+    IceCube: typeof import('./src/components/items/IceCube.vue')['default']
     IFaSolidPlus: typeof import('~icons/fa-solid/plus')['default']
     IFileIconsLeaflet: typeof import('~icons/file-icons/leaflet')['default']
     IFluentCube20Regular: typeof import('~icons/fluent/cube20-regular')['default']
@@ -26,6 +27,7 @@ declare module 'vue' {
     ITwemojiRollingOnTheFloorLaughing: typeof import('~icons/twemoji/rolling-on-the-floor-laughing')['default']
     IUilBackspace: typeof import('~icons/uil/backspace')['default']
     Leaf: typeof import('./src/components/items/Leaf.vue')['default']
+    PearlBall: typeof import('./src/components/items/PearlBall.vue')['default']
     Tea: typeof import('./src/components/Tea.vue')['default']
     WaySwitch: typeof import('./src/components/WaySwitch.vue')['default']
   }
