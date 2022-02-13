@@ -1,4 +1,4 @@
-import { TeaProps, MakeStep } from "@/types";
+import { TeaProps, MakeStep, DiyItems } from "@/types";
 import { reactive, ref } from "vue";
 
 export const teaProps = reactive<TeaProps>({
@@ -8,6 +8,7 @@ export const teaProps = reactive<TeaProps>({
 
 export const makeStep = ref<MakeStep>('BASE');
 
+export const diyItems = ref<DiyItems[]>([]);
 
 export function changeStep(step: MakeStep) {
     makeStep.value = step

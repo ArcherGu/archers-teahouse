@@ -6,6 +6,22 @@
     </transition>
 
     <transition name="slide-x">
+        <div class="diy-items-selector" v-if="makeStep === 'DIY'">
+            <div
+                class="diy-items"
+                :class="{ active: diyItems.some(e => e === item.type) }"
+                v-for="item in DIY_ITEMS"
+                :key="item.type"
+                :style="`background: ${item.bgColor}`"
+                @click="changeDitItems(item.type)"
+            >
+                <i-fa-solid-plus class="mr-1 text-light-500 text-sm" />
+                <component :is="item.icon" class="icon" />
+            </div>
+        </div>
+    </transition>
+
+    <transition name="slide-x">
         <div class="cup-size-selector" v-if="makeStep === 'DIY'">
             <div
                 v-for="size in cupSizeArr"
@@ -23,8 +39,9 @@
 </template>
 
 <script setup lang="ts">
-import { teaProps, makeStep, changeStep } from "@/store";
-import { CupSize } from "@/types";
+import { DIY_ITEMS } from "@/config";
+import { teaProps, makeStep, changeStep, diyItems } from "@/store";
+import { CupSize, DiyItems } from "@/types";
 import { toRefs } from "vue";
 
 const cupSizeArr: CupSize[] = ['S', 'M', 'L']
@@ -33,10 +50,45 @@ const changeCupSize = (size: CupSize) => {
     teaProps.cupSize = size
 }
 
+const changeDitItems = (item: DiyItems) => {
+    const index = diyItems.value.findIndex(e => e === item);
+    if (index > -1) {
+        diyItems.value.splice(index, 1);
+    }
+    else {
+        diyItems.value.push(item)
+    }
+
+    console.log(diyItems.value, item)
+}
+
 const { cupSize } = toRefs(teaProps);
 </script>
 
 <style lang="less">
+.diy-items-selector {
+    @apply absolute z-50;
+    top: calc(50% - 110px + var(--header-height) / 2);
+    left: 10px;
+    --slide-x-distance: translateX(-100vw);
+    .diy-items {
+        @apply py-2px px-4px h-30px rounded-5px mb-10px  flex items-center justify-center cursor-pointer opacity-30;
+        transition: all 0.5s ease;
+
+        .icon {
+            @apply h-20px w-20px;
+        }
+
+        &:last-child {
+            @apply mb-0;
+        }
+
+        &.active {
+            @apply border-gray-400 opacity-100;
+        }
+    }
+}
+
 .cup-size-selector {
     @apply absolute z-50;
     top: calc(50% - 100px + var(--header-height) / 2);
@@ -44,7 +96,7 @@ const { cupSize } = toRefs(teaProps);
     --slide-x-distance: translateX(100vw);
     .cup-size-item {
         @apply w-40px h-40px rounded-full border-3 mb-10px border-gray-400 flex items-center justify-center text-xl text-gray-400 cursor-pointer;
-        transition: all 0.5s ease;
+        transition: all 1s ease;
 
         &:last-child {
             @apply mb-0;

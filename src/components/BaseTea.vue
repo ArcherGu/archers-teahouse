@@ -11,7 +11,13 @@
                 viewBox="0 0 1000 1000"
                 xml:space="preserve"
             >
+                <linearGradient id="linearTeaColor" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" :stop-color="baseTeaObj.color" />
+                    <stop offset="100%" :stop-color="baseTeaObj.linearColor || baseTeaObj.color" />
+                </linearGradient>
+
                 <path
+                    fill="url(#linearTeaColor)"
                     class="wave"
                     d="M300,300V2.5c0,0-0.6-0.1-1.1-0.1c0,0-25.5-2.3-40.5-2.4c-15,0-40.6,2.4-40.6,2.4
             c-12.3,1.1-30.3,1.8-31.9,1.9c-2-0.1-19.7-0.8-32-1.9c0,0-25.8-2.3-40.8-2.4c-15,0-40.8,2.4-40.8,2.4c-12.3,1.1-30.4,1.8-32,1.9
@@ -55,14 +61,11 @@ const baseTeaObj = computed(() => {
 
 <style lang="less">
 .base-tea {
-    --base-tea-color: v-bind("baseTeaObj.color");
     position: relative;
     .wave-wrapper {
         .wave {
             transition: all 1s ease;
             animation: wave-action 2s linear infinite;
-
-            fill: var(--base-tea-color);
         }
 
         @keyframes wave-action {

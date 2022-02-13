@@ -1,10 +1,12 @@
-import { FunctionalComponent } from "vue"
+import { Component, FunctionalComponent } from "vue"
 
 export type CupSize = 'S' | 'M' | 'L';
 
 export type TeaType = 'milk' | 'red' | 'green' | 'milk tea' | 'coffee' | 'soda';
 
-export type MakeStep = 'BASE' | 'DIY' | 'ORDER'
+export type MakeStep = 'BASE' | 'DIY' | 'ORDER';
+
+export type DiyItems = 'CoconutFruit' | 'Pearl' | 'Pudding' | 'Ice'
 
 export interface TeaProps {
     cupSize: CupSize,
@@ -13,6 +15,7 @@ export interface TeaProps {
 
 export interface BaseTeaProps {
     color: string;
+    linearColor?: string;
     bubble?: boolean;
     leaf?: boolean;
     leafColor?: string;
@@ -22,4 +25,11 @@ export interface BaseTeaItem {
     name: string;
     type: TeaType;
     icon: FunctionalComponent
+}
+
+export interface DiyItemParams {
+    name: string;
+    type: DiyItems;
+    icon: Component;
+    bgColor: string;
 }
