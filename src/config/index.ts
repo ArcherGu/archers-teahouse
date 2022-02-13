@@ -9,7 +9,7 @@ import { CoconutFruit, Pearl, Pudding, Ice, Lemon } from "@/assets/svg";
 
 export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
     'milk': {
-        color: "rgb(255 255 255 / 60%)",
+        color: "rgb(255 255 255 / 80%)",
     },
     'red': {
         color: "rgb(177 9 9 / 50%)",
@@ -26,8 +26,8 @@ export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
         linearColor: "rgb(249 205 158 / 60%)"
     },
     'coffee': {
-        color: "rgb(96 39 2 / 60%)",
-        linearColor: "rgb(106 45 5 / 70%)",
+        color: "rgb(96 39 2 / 70%)",
+        linearColor: "rgb(106 45 5 / 80%)",
     },
     'soda': {
         color: "rgb(255 255 159 / 30%)",

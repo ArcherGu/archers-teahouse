@@ -22,6 +22,7 @@ declare module 'vue' {
     IIconParkSleep: typeof import('~icons/icon-park/sleep')['default']
     IMdiDotsHexagon: typeof import('~icons/mdi/dots-hexagon')['default']
     INotoBubbleTea: typeof import('~icons/noto/bubble-tea')['default']
+    INotoV1TwoHearts: typeof import('~icons/noto-v1/two-hearts')['default']
     ITablerCoffee: typeof import('~icons/tabler/coffee')['default']
     ITablerCup: typeof import('~icons/tabler/cup')['default']
     ITeenyiconsShopOutline: typeof import('~icons/teenyicons/shop-outline')['default']

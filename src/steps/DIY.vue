@@ -34,7 +34,10 @@
     </transition>
 
     <transition name="slide-y">
-        <button class="order-btn" v-if="makeStep === 'DIY'" @click="changeStep('BASE')">下单制作</button>
+        <button class="enjoy-btn" v-if="makeStep === 'DIY'" @click="changeStep('BASE')">
+            享用
+            <i-noto-v1-two-hearts class="absolute top-2 right-2 text-20px" />
+        </button>
     </transition>
 </template>
 
@@ -58,8 +61,6 @@ const changeDitItems = (item: DiyItems) => {
     else {
         diyItems.value.push(item)
     }
-
-    console.log(diyItems.value, item)
 }
 
 const { cupSize } = toRefs(teaProps);
@@ -108,8 +109,8 @@ const { cupSize } = toRefs(teaProps);
     }
 }
 
-.order-btn {
-    @apply w-120px rounded-xl bg-cyan-500 h-15 text-white font-bold shadow-xl <md:h-12 absolute z-50;
+.enjoy-btn {
+    @apply w-120px rounded-xl bg-violet-300 h-15 text-white font-bold shadow-xl <md:h-12 absolute z-50;
     left: calc(50% - 60px);
     bottom: 5vh;
     --slide-y-distance: translateY(20vh);
@@ -117,7 +118,7 @@ const { cupSize } = toRefs(teaProps);
     &:hover,
     &:active,
     &:focus {
-        @apply bg-cyan-600;
+        @apply bg-violet-400;
     }
 }
 

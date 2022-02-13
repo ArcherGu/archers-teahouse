@@ -25,6 +25,7 @@
         </div>
         <BaseStep />
         <DiyStep />
+        <EnjoyStep />
         <div class="tea-wrapper">
             <div>
                 <Tea />
@@ -38,7 +39,7 @@ import { Tea, WaySwitch } from "./components";
 import { makeStep } from "./store";
 import logo from "@/assets/logo.png";
 import { ref } from "vue";
-import { BaseStep, DiyStep } from "./steps";
+import { BaseStep, DiyStep, EnjoyStep } from "./steps";
 const isHimself = ref(false);
 </script>
 

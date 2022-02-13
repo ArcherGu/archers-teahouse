@@ -1,7 +1,7 @@
 <template>
     <div class="way-switch flex cursor-pointer" :class="{ enable: myVal }" @click="onChange">
-        <div class="w-1/2 flex-center z-100" :class="{ 'text-light-900': !value }">外送</div>
-        <div class="w-1/2 flex-center z-100" :class="{ 'text-light-900': value }">自取</div>
+        <div class="w-1/2 flex-center z-100" :class="{ 'text-white': !value }">外送</div>
+        <div class="w-1/2 flex-center z-100" :class="{ 'text-white': value }">自取</div>
     </div>
 </template>
 
@@ -27,7 +27,7 @@ const onChange = () => {
 
 <style lang="less">
 .way-switch {
-    @apply bg-gray-300;
+    @apply bg-gray-200;
     position: relative;
     height: 30px;
     width: 100px;

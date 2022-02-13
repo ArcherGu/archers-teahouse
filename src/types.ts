@@ -4,7 +4,7 @@ export type CupSize = 'S' | 'M' | 'L';
 
 export type TeaType = 'milk' | 'red' | 'green' | 'milk tea' | 'coffee' | 'soda';
 
-export type MakeStep = 'BASE' | 'DIY' | 'ORDER';
+export type MakeStep = 'BASE' | 'DIY' | 'ENJOY';
 
 export type DiyItems = 'CoconutFruit' | 'Pearl' | 'Lemon' | 'Ice'
 
