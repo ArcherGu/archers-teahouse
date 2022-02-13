@@ -26,7 +26,6 @@ const props = defineProps({
         position: absolute;
         transform: rotate(190deg);
         overflow: hidden;
-        z-index: 10;
         &:after {
             content: "";
             position: absolute;
@@ -37,6 +36,7 @@ const props = defineProps({
     }
 
     .green.leaf {
+        z-index: 10;
         top: 15%;
         left: 6px;
         animation: greenFloatLeaf 5s ease-in alternate infinite;
@@ -46,6 +46,7 @@ const props = defineProps({
     }
 
     .red.leaf {
+        z-index: 80;
         top: 10%;
         right: 23px;
         animation: redFloatLeaf 5s ease-in alternate infinite;

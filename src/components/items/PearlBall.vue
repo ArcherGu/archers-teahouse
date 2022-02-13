@@ -60,91 +60,91 @@
             bottom: 10px;
             left: 5px;
             --animation-time: 2.2s;
-            z-index: 2;
+            z-index: 10;
         }
         &.ball-2 {
             bottom: 16px;
             left: 25px;
             --animation-time: 3s;
-            z-index: 5;
+            z-index: 30;
         }
         &.ball-3 {
             bottom: 11px;
             left: 45px;
             --animation-time: 2.8s;
-            z-index: 12;
+            z-index: 10;
         }
         &.ball-4 {
             bottom: 23px;
             left: 65px;
             --animation-time: 1.8s;
-            z-index: 15;
+            z-index: 10;
         }
         &.ball-5 {
             bottom: 14px;
             right: 5px;
             --animation-time: 1.5s;
-            z-index: 15;
+            z-index: 30;
         }
         &.ball-6 {
             bottom: 33px;
             right: 25px;
             --animation-time: 2.4s;
-            z-index: 7;
+            z-index: 80;
         }
         &.ball-7 {
             bottom: 15px;
             right: 45px;
             --animation-time: 2.4s;
-            z-index: 3;
+            z-index: 10;
         }
         &.ball-8 {
             bottom: 30px;
             right: 65px;
             --animation-time: 2s;
-            z-index: 9;
+            z-index: 80;
         }
         &.ball-9 {
             bottom: 45px;
             left: 15px;
             --animation-time: 3s;
-            z-index: 2;
+            z-index: 10;
         }
         &.ball-10 {
             bottom: 53px;
             left: 45px;
             --animation-time: 2.8s;
-            z-index: 10;
+            z-index: 30;
         }
         &.ball-11 {
             bottom: 46px;
             left: 66px;
             --animation-time: 1.8s;
-            z-index: 7;
+            z-index: 80;
         }
         &.ball-12 {
             bottom: 50px;
             right: 15px;
             --animation-time: 1.5s;
-            z-index: 12;
+            z-index: 80;
         }
         &.ball-13 {
             bottom: 52px;
             right: 56px;
             --animation-time: 2.4s;
-            z-index: 3;
+            z-index: 30;
         }
         &.ball-14 {
             bottom: 49px;
             right: 35px;
             --animation-time: 2.4s;
-            z-index: 8;
+            z-index: 30;
         }
         &.ball-15 {
             bottom: 40px;
             right: 5px;
             --animation-time: 2s;
-            z-index: 4;
+            z-index: 10;
         }
 
         @keyframes floatBall {

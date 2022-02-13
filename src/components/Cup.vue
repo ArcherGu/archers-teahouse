@@ -54,10 +54,10 @@ const cupSizeObj = computed(() => {
     width: var(--cup-width);
     height: var(--cup-height);
     border: 5px solid var(--cup-glass);
-    border-top: none;
+    border-top: 0.2px solid rgba(255, 255, 255, 0.4);
     border-radius: 0 0 5px 5px;
     transform: perspective(var(--cup-perspective)) rotateX(-1deg);
-    z-index: 5;
+    z-index: 10;
     &:after {
         content: "";
         width: var(--cup-width);

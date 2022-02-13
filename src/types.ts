@@ -6,7 +6,7 @@ export type TeaType = 'milk' | 'red' | 'green' | 'milk tea' | 'coffee' | 'soda';
 
 export type MakeStep = 'BASE' | 'DIY' | 'ORDER';
 
-export type DiyItems = 'CoconutFruit' | 'Pearl' | 'Pudding' | 'Ice'
+export type DiyItems = 'CoconutFruit' | 'Pearl' | 'Lemon' | 'Ice'
 
 export interface TeaProps {
     cupSize: CupSize,

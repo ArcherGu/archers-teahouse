@@ -37,13 +37,13 @@ const cubeSize = computed(() => ICE_CUBE_SIZE[props.cupSize]);
     .cube1 {
         bottom: 5%;
         transform: rotate(-5deg);
-        z-index: 10;
+        z-index: 75;
     }
     .cube2 {
         bottom: calc(v-bind(cubeSize) + 3px);
         left: 50%;
         transform: rotate(35deg);
-        z-index: 5;
+        z-index: 25;
     }
     .cube3 {
         top: 6%;
@@ -51,7 +51,7 @@ const cubeSize = computed(() => ICE_CUBE_SIZE[props.cupSize]);
         height: calc(v-bind(cubeSize) - 10px);
         transform: rotate(5deg);
         animation: floatIce 2s infinite alternate;
-        z-index: 8;
+        z-index: 50;
     }
 
     @keyframes floatIce {

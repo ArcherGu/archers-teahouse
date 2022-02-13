@@ -27,6 +27,7 @@ declare module 'vue' {
     ITwemojiRollingOnTheFloorLaughing: typeof import('~icons/twemoji/rolling-on-the-floor-laughing')['default']
     IUilBackspace: typeof import('~icons/uil/backspace')['default']
     Leaf: typeof import('./src/components/items/Leaf.vue')['default']
+    LemonSlice: typeof import('./src/components/items/LemonSlice.vue')['default']
     PearlBall: typeof import('./src/components/items/PearlBall.vue')['default']
     Tea: typeof import('./src/components/Tea.vue')['default']
     WaySwitch: typeof import('./src/components/WaySwitch.vue')['default']

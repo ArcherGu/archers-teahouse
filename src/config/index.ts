@@ -5,7 +5,7 @@ import ITablerCoffee from '~icons/tabler/coffee';
 import IFileIconsLeaflet from '~icons/file-icons/leaflet';
 import IFluentLeafThree24Regular from '~icons/fluent/leaf-three24-regular';
 import IIconParkOutlineBubbleChart from '~icons/icon-park-outline/bubble-chart';
-import { CoconutFruit, Pearl, Pudding, Ice } from "@/assets/svg";
+import { CoconutFruit, Pearl, Pudding, Ice, Lemon } from "@/assets/svg";
 
 export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
     'milk': {
@@ -81,13 +81,13 @@ export const DIY_ITEMS: DiyItemParams[] = [
         name: '珍珠',
         type: 'Pearl',
         icon: Pearl,
-        bgColor: "#14b8a6"
+        bgColor: "#f59e0b"
     },
     {
-        name: '布丁',
-        type: 'Pudding',
-        icon: Pudding,
-        bgColor: "#f59e0b"
+        name: '柠檬',
+        type: 'Lemon',
+        icon: Lemon,
+        bgColor: "#14b8a6"
     },
     {
         name: '冰块',
@@ -101,4 +101,10 @@ export const ICE_CUBE_SIZE: { [key in CupSize]: string } = {
     'S': "48px",
     'M': '60px',
     'L': '60px'
+}
+
+export const LEMON_SCALE: { [key in CupSize]: string } = {
+    'S': "0.7",
+    'M': "0.9",
+    'L': "1"
 }
