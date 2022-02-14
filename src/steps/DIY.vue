@@ -1,11 +1,5 @@
 <template>
     <transition name="slide-x">
-        <button class="diy-back-btn" v-if="makeStep === 'DIY'" @click="changeStep('BASE')">
-            <i-akar-icons-arrow-back />
-        </button>
-    </transition>
-
-    <transition name="slide-x">
         <div class="diy-items-selector" v-if="makeStep === 'DIY'">
             <div
                 class="diy-items"
@@ -34,7 +28,7 @@
     </transition>
 
     <transition name="slide-y">
-        <button class="enjoy-btn" v-if="makeStep === 'DIY'" @click="changeStep('BASE')">
+        <button class="enjoy-btn" v-if="makeStep === 'DIY'" @click="changeStep('ENJOY')">
             享用
             <i-noto-v1-two-hearts class="absolute top-2 right-2 text-20px" />
         </button>
@@ -113,17 +107,11 @@ const { cupSize } = toRefs(teaProps);
     @apply w-120px rounded-xl bg-violet-300 h-15 text-white font-bold shadow-xl <md:h-12 absolute z-50;
     left: calc(50% - 60px);
     bottom: 5vh;
+    transition: all 0.5s ease;
     --slide-y-distance: translateY(20vh);
 
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover {
         @apply bg-violet-400;
     }
-}
-
-.diy-back-btn {
-    @apply absolute top-130px left-10px text-3xl text-gray-400 z-50;
-    --slide-x-distance: translateX(-100px);
 }
 </style>

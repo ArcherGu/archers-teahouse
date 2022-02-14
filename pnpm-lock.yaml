@@ -2,9 +2,12 @@ lockfileVersion: 5.3
 
 specifiers:
   '@iconify/json': ^2.0.36
+  '@types/dom-to-image': ^2.6.4
   '@types/node': ^17.0.17
   '@vitejs/plugin-vue': ^2.2.0
   '@vitejs/plugin-vue-jsx': ^1.3.4
+  dom-to-image: ^2.6.0
+  html-to-image: ^1.9.0
   less: ^4.1.2
   random: ^3.0.6
   typescript: ^4.5.4
@@ -17,11 +20,14 @@ specifiers:
   windicss: ^3.4.3
 
 dependencies:
+  dom-to-image: 2.6.0
+  html-to-image: 1.9.0
   random: 3.0.6
   vue: 3.2.30
 
 devDependencies:
   '@iconify/json': 2.0.36
+  '@types/dom-to-image': 2.6.4
   '@types/node': 17.0.17
   '@vitejs/plugin-vue': 2.2.0_vite@2.8.0+vue@3.2.30
   '@vitejs/plugin-vue-jsx': 1.3.4
@@ -445,6 +451,10 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /@types/dom-to-image/2.6.4:
+    resolution: {integrity: sha512-UddUdGF1qulrSDulkz3K2Ypq527MR6ixlgAzqLbxSiQ0icx0XDlIV+h4+edmjq/1dqn0KgN0xGSe1kI9t+vGuw==}
+    dev: true
+
   /@types/node/17.0.17:
     resolution: {integrity: sha512-e8PUNQy1HgJGV3iU/Bp2+D/DXh3PYeyli8LgIwsQcs1Ar1LoaWHSIT6Rw+H2rNJmiq6SNWiDytfx8+gYj7wDHw==}
     dev: true
@@ -856,6 +866,10 @@ packages:
       entities: 2.2.0
     dev: true
 
+  /dom-to-image/2.6.0:
+    resolution: {integrity: sha1-ilA2CAiMh7HCL5A0rgMuGJiVWGc=}
+    dev: false
+
   /domelementtype/2.2.0:
     resolution: {integrity: sha512-DtBMo82pv1dFtUmHyr48beiuq792Sxohr+8Hm9zoxklYPfa6n0Z3Byjj2IV7bmr2IyqClnqEQhfgHJJ5QF0R5A==}
     dev: true
@@ -1242,6 +1256,10 @@ packages:
     resolution: {integrity: sha512-1qYz89hW3lFDEazhjW0yVAV87lw8lVkrJocr72XmBkMKsoSVJCQx3W8BXsC7hO2qAt8BoVjYjtAcZ9perqGnNg==}
     engines: {node: '>=8'}
     dev: true
+
+  /html-to-image/1.9.0:
+    resolution: {integrity: sha512-9gaDCIYg62Ek07F2pBk76AHgYZ2gxq2YALU7rK3gNCqXuhu6cWzsOQqM7qGbjZiOzxGzrU1deDqZpAod2NEwbA==}
+    dev: false
 
   /htmlparser2/7.2.0:
     resolution: {integrity: sha512-H7MImA4MS6cw7nbyURtLPO1Tms7C5H602LRETv95z1MxO/7CP7rDVROehUYeYBUYEON94NXXDEPmZuq+hX4sog==}

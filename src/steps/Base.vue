@@ -78,11 +78,10 @@ const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaP
     @apply w-120px rounded-xl bg-cyan-500 h-15 text-white font-bold shadow-xl <md:h-12 absolute z-50;
     left: calc(50% - 60px + var(--selector-item-height) / 2);
     bottom: 5vh;
+    transition: all 0.5s ease;
     --slide-y-distance: translateY(20vh);
 
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover {
         @apply bg-cyan-600;
     }
 }

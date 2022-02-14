@@ -23,24 +23,84 @@
                 <WaySwitch v-model:value="isHimself" />
             </div>
         </div>
+        <transition name="slide-x">
+            <button
+                class="top-btn step-back-btn"
+                v-if="makeStep === 'DIY' || makeStep === 'ENJOY'"
+                @click="changeStep(makeStep === 'DIY' ? 'BASE' : 'DIY')"
+            >
+                <i-akar-icons-arrow-back />
+            </button>
+        </transition>
+
         <BaseStep />
         <DiyStep />
         <EnjoyStep />
         <div class="tea-wrapper">
-            <div>
+            <div id="tea-share-box">
                 <Tea />
             </div>
         </div>
+
+        <transition name="slide-x">
+            <button class="top-btn tea-share-btn" v-if="makeStep === 'ENJOY'" @click="shareTea">
+                <i-fluent-share-android-24-regular />
+            </button>
+        </transition>
+
+        <transition name="fade">
+            <div
+                class="share-modal-wrapper"
+                v-if="makeStep === 'ENJOY' && isShareModal"
+                @click="hideShareModal"
+            >
+                <div class="share-modal">
+                    <img :src="teaShareImg" alt="不上茶屋特供" class="share-img" />
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Tea, WaySwitch } from "./components";
-import { makeStep } from "./store";
+import { makeStep, changeStep } from "./store";
 import logo from "@/assets/logo.png";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { BaseStep, DiyStep, EnjoyStep } from "./steps";
+import domtoimage from 'dom-to-image';
+
 const isHimself = ref(false);
+
+const isShareModal = ref(false);
+const teaShareImg = ref<string>("");
+
+watch(
+    () => makeStep.value,
+    () => {
+        if (makeStep.value !== 'ENJOY') {
+            isShareModal.value = false;
+            teaShareImg.value = "";
+        }
+    }
+)
+
+const shareTea = async () => {
+    const teaShareEl = document.getElementById("tea-share-box");
+    if (!teaShareEl) return;
+
+    if (teaShareImg.value) {
+        isShareModal.value = true;
+        return;
+    }
+
+    teaShareImg.value = await domtoimage.toPng(teaShareEl);
+    isShareModal.value = true
+}
+
+const hideShareModal = () => {
+    isShareModal.value = false
+}
 </script>
 
 <style lang="less">
@@ -56,5 +116,49 @@ const isHimself = ref(false);
     padding-left: v-bind(
         'makeStep === "BASE"? "var(--selector-item-height)" : "0px"'
     );
+
+    #tea-share-box {
+        padding: 100px;
+    }
+}
+
+.tea-share-btn {
+    @apply right-10px;
+    --slide-x-distance: translateX(100px);
+}
+
+.share-modal-wrapper {
+    @apply absolute top-0 left-0 w-full h-full z-1000;
+    .share-modal {
+        @apply w-4/5 p-10px relative;
+        transition: all 0.5s ease;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .share-img {
+            position: relative;
+            z-index: 10;
+        }
+
+        &::before {
+            @apply absolute border-10 border-gray-400 border-double shadow-2xl bg-white z-5;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            transform: rotate(5deg);
+        }
+
+        &::after {
+            @apply absolute border-10 border-gray-400 border-double shadow-2xl bg-white z-8;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+        }
+    }
 }
 </style>

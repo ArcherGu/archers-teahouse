@@ -91,3 +91,16 @@ body,
 .slide-y-leave-to {
     transform: var(--slide-y-distance);
 }
+
+.top-btn {
+    @apply absolute top-130px text-3xl text-gray-400 z-50;
+    transition: all 0.5s ease;
+    &:hover {
+        @apply text-gray-500;
+    }
+}
+
+.step-back-btn {
+    @apply left-10px;
+    --slide-x-distance: translateX(-100px);
+}

@@ -19,8 +19,7 @@ const props = defineProps({
 const cupSizeObj = computed(() => {
     const obj = {
         width: "150px",
-        height: "250px",
-        perspective: "15px"
+        height: "250px"
     }
     switch (props.size) {
         case 'S':
@@ -47,7 +46,6 @@ const cupSizeObj = computed(() => {
     --cup-glass: rgba(254, 254, 254, 0.6);
     --cup-width: v-bind("cupSizeObj.width");
     --cup-height: v-bind("cupSizeObj.height");
-    --cup-perspective: v-bind("cupSizeObj.perspective");
 
     @apply shadow-2xl;
     position: relative;
@@ -56,7 +54,7 @@ const cupSizeObj = computed(() => {
     border: 5px solid var(--cup-glass);
     border-top: 0.2px solid rgba(255, 255, 255, 0.4);
     border-radius: 0 0 5px 5px;
-    transform: perspective(var(--cup-perspective)) rotateX(-1deg);
+    transform: perspective(15px) rotateX(-1deg);
     z-index: 10;
     &:after {
         content: "";

@@ -1,11 +1,6 @@
-<template>
-    <transition name="slide-x">
-        <div></div>
-    </transition>
-</template>
+<template></template>
 
 <script setup lang="ts">
-import { teaProps, makeStep, changeStep } from "@/store";
 
 </script>
 
