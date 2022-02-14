@@ -39,11 +39,22 @@
         <div class="tea-wrapper">
             <div id="tea-share-box">
                 <Tea />
+
+                <img
+                    :src="slogan"
+                    alt="不上茶屋特供"
+                    class="slogan-img"
+                    v-if="makeStep === 'ENJOY' && !isShareModal"
+                />
             </div>
         </div>
 
         <transition name="slide-x">
-            <button class="top-btn tea-share-btn" v-if="makeStep === 'ENJOY'" @click="shareTea">
+            <button
+                class="top-btn tea-share-btn"
+                v-if="makeStep === 'ENJOY' && !isIOS"
+                @click="shareTea"
+            >
                 <i-fluent-share-android-24-regular />
             </button>
         </transition>
@@ -55,6 +66,7 @@
                 @click="hideShareModal"
             >
                 <div class="share-modal">
+                    <div class="share-note">长按图片进行保存</div>
                     <img :src="teaShareImg" alt="不上茶屋特供" class="share-img" />
                 </div>
             </div>
@@ -72,7 +84,8 @@
 import { Tea, WaySwitch } from "./components";
 import { makeStep, changeStep, bgColor } from "./store";
 import logo from "@/assets/logo.png";
-import { ref, watch } from "vue";
+import slogan from "@/assets/slogan.png";
+import { computed, ref, watch } from "vue";
 import { BaseStep, DiyStep, EnjoyStep } from "./steps";
 import domtoimage from 'dom-to-image';
 
@@ -91,6 +104,8 @@ watch(
     }
 )
 
+const isIOS = computed(() => !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/));
+
 const shareTea = async () => {
     const teaShareEl = document.getElementById("tea-share-box");
     if (!teaShareEl) return;
@@ -98,7 +113,7 @@ const shareTea = async () => {
     teaShareImg.value = await domtoimage.toPng(teaShareEl, {
         bgcolor: bgColor.value,
         style: {
-            paddingTop: "150px",
+            // paddingTop: "150px",
         }
     });
     isShareModal.value = true
@@ -124,9 +139,15 @@ const hideShareModal = () => {
     );
 
     #tea-share-box {
+        position: relative;
         padding: 100px;
         --cup-perspective: 15px;
         --cup-rotate-x: -1deg;
+
+        .slogan-img {
+            @apply absolute bottom-30px left-12 h-30px;
+            opacity: 0.6;
+        }
     }
 }
 
@@ -144,6 +165,10 @@ const hideShareModal = () => {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+
+        .share-note {
+            @apply absolute -bottom-35px w-full text-center;
+        }
 
         .share-img {
             position: relative;
@@ -174,7 +199,7 @@ const hideShareModal = () => {
 .foot {
     width: 100%;
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     text-align: center;
     z-index: 99;
     color: #71717a;
