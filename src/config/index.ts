@@ -108,3 +108,13 @@ export const LEMON_SCALE: { [key in CupSize]: string } = {
     'M': "0.9",
     'L': "1"
 }
+
+export const ENJOY_BG_COLOR: string[] = [
+    '#fecdd3',
+    '#fde68a',
+    '#bbf7d0',
+    '#a5f3fc',
+    '#edeade',
+    '#e9d5ff',
+    '#e4e4e7'
+]

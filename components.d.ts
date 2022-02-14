@@ -25,6 +25,7 @@ declare module 'vue' {
     IMdiDotsHexagon: typeof import('~icons/mdi/dots-hexagon')['default']
     IMdiShareVariantOutline: typeof import('~icons/mdi/share-variant-outline')['default']
     INotoBubbleTea: typeof import('~icons/noto/bubble-tea')['default']
+    INotoV1RedHeart: typeof import('~icons/noto-v1/red-heart')['default']
     INotoV1TwoHearts: typeof import('~icons/noto-v1/two-hearts')['default']
     ITablerCoffee: typeof import('~icons/tabler/coffee')['default']
     ITablerCup: typeof import('~icons/tabler/cup')['default']

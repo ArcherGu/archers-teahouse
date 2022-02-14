@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full bg-gray-300 overflow-hidden">
+    <div class="h-full overflow-hidden" :style="{ background: bgColor }">
         <div class="header p-10px relative">
             <div class="mt-1">
                 <img :src="logo" alt="不上茶屋" class="h-40px" />
@@ -59,12 +59,18 @@
                 </div>
             </div>
         </transition>
+
+        <div class="foot">
+            Made with
+            <i-noto-v1-red-heart class="inline-block mr-1" />by
+            <a target="_blank" href="https://archergu.me/">Archer Gu</a>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { Tea, WaySwitch } from "./components";
-import { makeStep, changeStep } from "./store";
+import { makeStep, changeStep, bgColor } from "./store";
 import logo from "@/assets/logo.png";
 import { ref, watch } from "vue";
 import { BaseStep, DiyStep, EnjoyStep } from "./steps";
@@ -89,12 +95,12 @@ const shareTea = async () => {
     const teaShareEl = document.getElementById("tea-share-box");
     if (!teaShareEl) return;
 
-    if (teaShareImg.value) {
-        isShareModal.value = true;
-        return;
-    }
-
-    teaShareImg.value = await domtoimage.toPng(teaShareEl);
+    teaShareImg.value = await domtoimage.toPng(teaShareEl, {
+        bgcolor: bgColor.value,
+        style: {
+            paddingTop: "150px",
+        }
+    });
     isShareModal.value = true
 }
 
@@ -119,6 +125,8 @@ const hideShareModal = () => {
 
     #tea-share-box {
         padding: 100px;
+        --cup-perspective: 15px;
+        --cup-rotate-x: -1deg;
     }
 }
 
@@ -130,7 +138,8 @@ const hideShareModal = () => {
 .share-modal-wrapper {
     @apply absolute top-0 left-0 w-full h-full z-1000;
     .share-modal {
-        @apply w-4/5 p-10px relative;
+        @apply p-10px relative;
+        max-width: 350px;
         transition: all 0.5s ease;
         top: 50%;
         left: 50%;
@@ -160,5 +169,30 @@ const hideShareModal = () => {
             left: 0px;
         }
     }
+}
+
+.foot {
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    z-index: 99;
+    color: #71717a;
+    font-size: 0.7rem;
+    line-height: 1.25rem;
+}
+
+.foot a {
+    color: #52525b;
+    font-weight: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(125, 125, 125, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-left: 4px;
+}
+
+.foot a:hover {
+    color: #00aa90;
+    border-bottom: 1px dotted #00aa90;
 }
 </style>

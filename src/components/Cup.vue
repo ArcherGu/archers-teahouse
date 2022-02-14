@@ -24,15 +24,12 @@ const cupSizeObj = computed(() => {
     switch (props.size) {
         case 'S':
             obj.height = "240px";
-            obj.width = "150px";
             break;
         case 'L':
             obj.height = "320px";
-            obj.width = "150px";
             break;
         default:
             obj.height = "280px";
-            obj.width = "150px";
             break;
     }
 
@@ -54,7 +51,8 @@ const cupSizeObj = computed(() => {
     border: 5px solid var(--cup-glass);
     border-top: 0.2px solid rgba(255, 255, 255, 0.4);
     border-radius: 0 0 5px 5px;
-    transform: perspective(15px) rotateX(-1deg);
+    // transform: perspective(15px) rotateX(-1deg);
+    transform: perspective(var(--cup-perspective)) rotateX(var(--cup-rotate-x));
     z-index: 10;
     &:after {
         content: "";
