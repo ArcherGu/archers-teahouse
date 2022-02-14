@@ -103,7 +103,7 @@ watch(
         }
     }
 )
-
+// const isIOS = false;
 const isIOS = computed(() => !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/));
 
 const shareTea = async () => {
@@ -113,7 +113,7 @@ const shareTea = async () => {
     teaShareImg.value = await domtoimage.toPng(teaShareEl, {
         bgcolor: bgColor.value,
         style: {
-            // paddingTop: "150px",
+            paddingTop: "150px",
         }
     });
     isShareModal.value = true
@@ -145,7 +145,7 @@ const hideShareModal = () => {
         --cup-rotate-x: -1deg;
 
         .slogan-img {
-            @apply absolute bottom-30px left-12 h-30px;
+            @apply absolute bottom-50px left-12 h-30px z-1000;
             opacity: 0.6;
         }
     }
