@@ -22,6 +22,8 @@ import { makeStep, changeBgColor } from "@/store";
     @apply flex items-center justify-center absolute z-50;
     left: calc(50% - 100px);
     bottom: 5vh;
+    --slide-y-distance: translateY(20vh);
+
     .enjoy-bg-color {
         @apply w-20px h-20px rounded-full border-2 mr-10px border-gray-100 cursor-pointer;
 

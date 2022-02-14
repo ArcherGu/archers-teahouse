@@ -5,7 +5,7 @@ import ITablerCoffee from '~icons/tabler/coffee';
 import IFileIconsLeaflet from '~icons/file-icons/leaflet';
 import IFluentLeafThree24Regular from '~icons/fluent/leaf-three24-regular';
 import IIconParkOutlineBubbleChart from '~icons/icon-park-outline/bubble-chart';
-import { CoconutFruit, Pearl, Pudding, Ice, Lemon } from "@/assets/svg";
+import { CoconutFruit, Pearl, Ice, Lemon } from "@/assets/svg";
 
 export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
     'milk': {

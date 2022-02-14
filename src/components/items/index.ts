@@ -4,3 +4,4 @@ export { default as IceCube } from "./IceCube.vue";
 export { default as PearlBall } from "./PearlBall.vue";
 export { default as LemonSlice } from "./LemonSlice.vue";
 export { default as CoconutFruitCube } from "./CoconutFruitCube.vue";
+export { default as Straw } from "./Straw.vue";

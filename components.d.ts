@@ -35,6 +35,7 @@ declare module 'vue' {
     Leaf: typeof import('./src/components/items/Leaf.vue')['default']
     LemonSlice: typeof import('./src/components/items/LemonSlice.vue')['default']
     PearlBall: typeof import('./src/components/items/PearlBall.vue')['default']
+    Straw: typeof import('./src/components/items/Straw.vue')['default']
     Tea: typeof import('./src/components/Tea.vue')['default']
     WaySwitch: typeof import('./src/components/WaySwitch.vue')['default']
   }

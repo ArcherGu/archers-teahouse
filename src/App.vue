@@ -174,7 +174,7 @@ const hideShareModal = () => {
 .foot {
     width: 100%;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     text-align: center;
     z-index: 99;
     color: #71717a;
