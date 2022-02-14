@@ -205,6 +205,10 @@ const hideShareModal = () => {
     color: #71717a;
     font-size: 0.7rem;
     line-height: 1.25rem;
+    transition: all 0.5s ease;
+    padding-left: v-bind(
+        'makeStep === "BASE"? "var(--selector-item-height)" : "0px"'
+    );
 }
 
 .foot a {
