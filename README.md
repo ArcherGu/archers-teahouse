@@ -1,11 +1,14 @@
-# Vue 3 + Typescript + Vite
+<p align="center">
+    <img width="500" src="./src/assets/logo.png" alt="logo">
+</p>
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# [不上茶屋](http://teahouse.archergu.me/) 🍃
 
-## Recommended IDE Setup
+不上茶屋，即不去卖茶饮的店铺，这是一个茶饮制作器，希望可以帮助大家戒奶茶。😂
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+送给我老婆的2022年情人节礼物，也是我们的第四个结婚纪念日。❤
 
-## Type Support For `.vue` Imports in TS
+## License
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+<samp>code is licensed under <a href='./LICENSE'>MIT</a>,<br> words, images and models are licensed under <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a></samp>.
+
