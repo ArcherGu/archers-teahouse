@@ -37,7 +37,7 @@
         <DiyStep />
         <EnjoyStep />
         <div class="tea-wrapper">
-            <div id="tea-share-box">
+            <!-- <div id="tea-share-box">
                 <Tea />
 
                 <img
@@ -46,7 +46,9 @@
                     class="slogan-img"
                     v-if="makeStep === 'ENJOY' && !isShareModal"
                 />
-            </div>
+            </div>-->
+
+            <Tea />
         </div>
 
         <transition name="slide-x">

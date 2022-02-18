@@ -7,6 +7,15 @@ import IFluentLeafThree24Regular from '~icons/fluent/leaf-three24-regular';
 import IIconParkOutlineBubbleChart from '~icons/icon-park-outline/bubble-chart';
 import { CoconutFruit, Pearl, Ice, Lemon } from "@/assets/svg";
 
+export const CUP_WIDTH = 180;
+export const CUP_BOTTOM_OFFSET = 24;
+export const LIQUID_TO_TOP_OFFSET = 20;
+export const CUP_HEIGHT: { [key in CupSize]: number } = {
+    'S': 260,
+    'M': 320,
+    'L': 340
+}
+
 export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
     'milk': {
         color: "rgb(255 255 255 / 80%)",

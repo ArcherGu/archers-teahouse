@@ -23,6 +23,7 @@ declare module 'vue' {
     PearlBall: typeof import('./src/components/items/PearlBall.vue')['default']
     Straw: typeof import('./src/components/items/Straw.vue')['default']
     Tea: typeof import('./src/components/Tea.vue')['default']
+    TeaEx: typeof import('./src/components/TeaEx.vue')['default']
     WaySwitch: typeof import('./src/components/WaySwitch.vue')['default']
   }
 }
