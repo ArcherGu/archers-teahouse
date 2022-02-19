@@ -38,9 +38,6 @@ export class GradientColor {
             return this.cache[id];
         }
 
-        console.log(`Create new texture: ${id}`)
-        console.log(this.cache)
-
         const c = document.createElement("canvas");
         c.width = width;
         c.height = height;

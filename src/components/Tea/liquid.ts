@@ -29,7 +29,8 @@ export class Liquid extends Graphics {
         cupSize: CupSize,
     ) {
         super();
-        this.x = 2
+        this.x = 2;
+        this.zIndex = 100;
         this.cupWidth = CUP_WIDTH - 4;
         this.cupHeight = CUP_HEIGHT[cupSize] - 2;
         this.baseTea = BASE_TEA[teaType];
@@ -47,7 +48,6 @@ export class Liquid extends Graphics {
             vertex.origin = vertex.clone();
             this.topVertices[i] = vertex;
         }
-
     }
 
     draw() {

@@ -1,4 +1,4 @@
-import type { BaseTeaItem, BaseTeaProps, CupSize, DiyItemParams, TeaType } from "@/types";
+import type { BaseTeaItem, BaseTeaProps, CupSize, DiyItemParams, LeafType, TeaType } from "@/types";
 import IIconParkOutlineMilk from '~icons/icon-park-outline/milk';
 import ITablerCup from '~icons/tabler/cup'
 import ITablerCoffee from '~icons/tabler/coffee';
@@ -23,12 +23,12 @@ export const BASE_TEA: { [key in TeaType]: BaseTeaProps } = {
     'red': {
         color: "rgb(177 9 9 / 50%)",
         linearColor: "rgb(177 9 9 / 60%)",
-        leaf: true,
+        leaf: 'red',
     },
     'green': {
         color: "rgb(118 193 29 / 50%)",
         linearColor: "rgb(29 86 2 / 50%)",
-        leaf: true,
+        leaf: 'green',
     },
     'milk tea': {
         color: "rgb(249 205 158 / 50%)",
@@ -127,3 +127,8 @@ export const ENJOY_BG_COLOR: string[] = [
     '#e9d5ff',
     '#e4e4e7'
 ]
+
+export const LEAF_COLOR: { [key in LeafType]: [number, number] } = {
+    'green': [0x136855, 0x2d9174],
+    'red': [0x992b3a, 0x622b36]
+}

@@ -7,12 +7,14 @@ import { Liquid } from "./liquid";
 import { teaProps } from "@/store";
 import { BASE_TEA } from "@/config";
 import { watch } from "vue";
+import { Leaf } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
     private container: Container;
     private cup: Cup;
     private liquid: Liquid;
+    private leaf: Leaf;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -38,14 +40,18 @@ export class Tea {
         this.liquid = new Liquid(
             teaType,
             cupSize
-        )
+        );
+
+        this.leaf = new Leaf(BASE_TEA[teaType].leaf);
     }
 
     init() {
         this.cup.draw();
         this.liquid.draw();
+        this.leaf.draw();
 
-        this.container.addChild(this.cup, this.liquid);
+        this.container.addChild(this.cup, this.liquid, this.leaf);
+        this.container.sortChildren();
 
         const { width, height } = this.renderer;
         this.container.position.set((width - this.container.width) / 2, (height - this.container.height) / 2);
@@ -61,7 +67,10 @@ export class Tea {
         })
 
         watch(() => teaProps.teaType, () => {
-            this.liquid.changeTeaType(teaProps.teaType)
+            const baseTea = BASE_TEA[teaProps.teaType];
+
+            this.liquid.changeTeaType(teaProps.teaType);
+            this.leaf.changeType(baseTea.leaf);
         })
     }
 

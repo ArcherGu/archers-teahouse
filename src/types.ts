@@ -6,7 +6,9 @@ export type TeaType = 'milk' | 'red' | 'green' | 'milk tea' | 'coffee' | 'soda';
 
 export type MakeStep = 'BASE' | 'DIY' | 'ENJOY';
 
-export type DiyItems = 'CoconutFruit' | 'Pearl' | 'Lemon' | 'Ice'
+export type DiyItems = 'CoconutFruit' | 'Pearl' | 'Lemon' | 'Ice';
+
+export type LeafType = 'green' | 'red';
 
 export interface TeaProps {
     cupSize: CupSize,
@@ -17,7 +19,7 @@ export interface BaseTeaProps {
     color: string;
     linearColor?: string;
     bubble?: boolean;
-    leaf?: boolean;
+    leaf?: LeafType;
     leafColor?: string;
 }
 
