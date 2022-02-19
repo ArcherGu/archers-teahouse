@@ -8,6 +8,7 @@ import { teaProps } from "@/store";
 import { BASE_TEA } from "@/config";
 import { watch } from "vue";
 import { Leaf } from "./items";
+import { Bubble } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -15,6 +16,7 @@ export class Tea {
     private cup: Cup;
     private liquid: Liquid;
     private leaf: Leaf;
+    private bubble: Bubble
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -43,14 +45,16 @@ export class Tea {
         );
 
         this.leaf = new Leaf(BASE_TEA[teaType].leaf);
+        this.bubble = new Bubble(cupSize, BASE_TEA[teaType].bubble)
     }
 
     init() {
         this.cup.draw();
         this.liquid.draw();
         this.leaf.draw();
+        this.bubble.draw();
 
-        this.container.addChild(this.cup, this.liquid, this.leaf);
+        this.container.addChild(this.cup, this.liquid, this.leaf, this.bubble);
         this.container.sortChildren();
 
         const { width, height } = this.renderer;
@@ -61,9 +65,11 @@ export class Tea {
     }
 
     watch() {
-        watch(() => teaProps.cupSize, () => {
-            this.changeCupSize(teaProps.cupSize);
-            this.liquid.changeCupSize(teaProps.cupSize)
+        watch(() => teaProps.cupSize, (cupSize) => {
+            console.log(cupSize)
+            this.changeCupSize(cupSize);
+            this.liquid.changeCupSize(cupSize);
+            this.bubble.changeCupSize(cupSize)
         })
 
         watch(() => teaProps.teaType, () => {
@@ -71,6 +77,7 @@ export class Tea {
 
             this.liquid.changeTeaType(teaProps.teaType);
             this.leaf.changeType(baseTea.leaf);
+            this.bubble.changeVisible(baseTea.bubble);
         })
     }
 

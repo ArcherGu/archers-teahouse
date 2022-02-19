@@ -13,7 +13,6 @@ interface LeafFloat {
     to: [number, number];
     angle: [number, number]; // [from,to]
 }
-
 const LEAF_FLOAT: { [key in LeafType]: LeafFloat } = {
     'green': {
         from: [25, 60],
@@ -26,6 +25,7 @@ const LEAF_FLOAT: { [key in LeafType]: LeafFloat } = {
         angle: [-35, -40]
     }
 }
+
 export class Leaf extends Graphics {
     private type: LeafType | undefined;
     private greenTween: gsap.core.Tween;
@@ -45,15 +45,8 @@ export class Leaf extends Graphics {
 
         const greenFloat = LEAF_FLOAT['green'];
         const redFloat = LEAF_FLOAT['red'];
-        this.greenTween = gsap.fromTo(
+        this.greenTween = gsap.to(
             this,
-            {
-                pixi: {
-                    x: greenFloat.from[0],
-                    y: greenFloat.from[1],
-                    angle: greenFloat.angle[0]
-                }
-            },
             {
                 pixi: {
                     x: greenFloat.to[0],
@@ -68,15 +61,8 @@ export class Leaf extends Graphics {
             },
         ).pause();
 
-        this.redTween = gsap.fromTo(
+        this.redTween = gsap.to(
             this,
-            {
-                pixi: {
-                    x: redFloat.from[0],
-                    y: redFloat.from[1],
-                    angle: redFloat.angle[0]
-                }
-            },
             {
                 pixi: {
                     x: redFloat.to[0],
@@ -122,16 +108,21 @@ export class Leaf extends Graphics {
         };
 
         const float = LEAF_FLOAT[this.type];
-        this.position.set(...float.from);
-        this.angle = 90//float.angle[0];
+        gsap.set(this, {
+            pixi: {
+                x: float.from[0],
+                y: float.from[1],
+                angle: float.angle[0]
+            }
+        })
 
         if (this.type === 'green') {
             this.redTween.pause();
-            this.greenTween.restart();
+            this.greenTween.play();
         }
         else {
             this.greenTween.pause();
-            this.redTween.restart();
+            this.redTween.play();
         }
     }
 }
