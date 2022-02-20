@@ -1,5 +1,6 @@
 import { CUP_BOTTOM_OFFSET, CUP_HEIGHT, CUP_WIDTH } from "@/config";
 import { CupSize } from "@/types";
+import { DropShadowFilter } from "pixi-filters";
 import { Graphics } from "pixi.js";
 
 export class Cup extends Graphics {
@@ -7,6 +8,15 @@ export class Cup extends Graphics {
         private cupSize: CupSize,
     ) {
         super();
+        this.zIndex = 100;
+
+        const shadowFilter = new DropShadowFilter();
+        shadowFilter.color = 0x000000;
+        shadowFilter.alpha = 0.25;
+        shadowFilter.blur = 2
+        shadowFilter.distance = 5;
+
+        this.filters = [shadowFilter]
     }
 
     draw() {

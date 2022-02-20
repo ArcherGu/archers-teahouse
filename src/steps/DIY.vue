@@ -48,12 +48,12 @@ const changeCupSize = (size: CupSize) => {
 }
 
 const changeDitItems = (item: DiyItems) => {
-    const index = diyItems.value.findIndex(e => e === item);
+    const index = diyItems.findIndex(e => e === item);
     if (index > -1) {
-        diyItems.value.splice(index, 1);
+        diyItems.splice(index, 1);
     }
     else {
-        diyItems.value.push(item)
+        diyItems.push(item)
     }
 }
 

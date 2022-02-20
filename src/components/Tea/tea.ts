@@ -1,13 +1,12 @@
 import { CupSize } from "@/types";
 import { AbstractRenderer, autoDetectRenderer, Container, Graphics } from "pixi.js";
 import { Cup } from "./cup";
-import { setMask } from "./utils";
 import { gsap } from "@/plugins";
 import { Liquid } from "./liquid";
-import { teaProps } from "@/store";
+import { bgColor, diyItems, teaProps } from "@/store";
 import { BASE_TEA } from "@/config";
 import { watch } from "vue";
-import { Leaf } from "./items";
+import { IceCube, Leaf } from "./items";
 import { Bubble } from "./items";
 
 export class Tea {
@@ -16,7 +15,8 @@ export class Tea {
     private cup: Cup;
     private liquid: Liquid;
     private leaf: Leaf;
-    private bubble: Bubble
+    private bubble: Bubble;
+    private iceCube: IceCube;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -31,8 +31,7 @@ export class Tea {
             antialias: true,
             backgroundColor: 0xe4e4e7,
             resolution: 1,
-            view,
-            forceCanvas: true
+            view
         });
 
         this.container = new Container();
@@ -45,7 +44,8 @@ export class Tea {
         );
 
         this.leaf = new Leaf(BASE_TEA[teaType].leaf);
-        this.bubble = new Bubble(cupSize, BASE_TEA[teaType].bubble)
+        this.bubble = new Bubble(cupSize, BASE_TEA[teaType].bubble);
+        this.iceCube = new IceCube(cupSize);
     }
 
     init() {
@@ -53,8 +53,15 @@ export class Tea {
         this.liquid.draw();
         this.leaf.draw();
         this.bubble.draw();
+        this.iceCube.draw();
 
-        this.container.addChild(this.cup, this.liquid, this.leaf, this.bubble);
+        this.container.addChild(
+            this.cup,
+            this.liquid,
+            this.leaf,
+            this.bubble,
+            this.iceCube
+        );
         this.container.sortChildren();
 
         const { width, height } = this.renderer;
@@ -65,11 +72,17 @@ export class Tea {
     }
 
     watch() {
+        watch(bgColor, (color) => {
+            // TODO: change color
+            this.renderer.backgroundColor = 0xfde68a
+        })
+
         watch(() => teaProps.cupSize, (cupSize) => {
             console.log(cupSize)
             this.changeCupSize(cupSize);
             this.liquid.changeCupSize(cupSize);
-            this.bubble.changeCupSize(cupSize)
+            this.bubble.changeCupSize(cupSize);
+            this.iceCube.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -78,7 +91,11 @@ export class Tea {
             this.liquid.changeTeaType(teaProps.teaType);
             this.leaf.changeType(baseTea.leaf);
             this.bubble.changeVisible(baseTea.bubble);
-        })
+        });
+
+        watch(() => diyItems, () => {
+            this.iceCube.changeVisible(diyItems.some(e => e === 'Ice'));
+        }, { deep: true })
     }
 
     resize(width: number, height: number) {

@@ -8,7 +8,7 @@ export const teaProps = reactive<TeaProps>({
 
 export const makeStep = ref<MakeStep>('BASE');
 
-export const diyItems = ref<DiyItems[]>([]);
+export const diyItems = reactive<DiyItems[]>([]);
 
 export const bgColor = ref('#e4e4e7');
 
