@@ -73,8 +73,7 @@ export class Tea {
 
     watch() {
         watch(bgColor, (color) => {
-            // TODO: change color
-            this.renderer.backgroundColor = 0xfde68a
+            this.renderer.backgroundColor = parseInt(color.replace('#', ''), 16);
         })
 
         watch(() => teaProps.cupSize, (cupSize) => {
