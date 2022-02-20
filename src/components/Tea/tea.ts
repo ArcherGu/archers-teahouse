@@ -6,8 +6,7 @@ import { Liquid } from "./liquid";
 import { bgColor, diyItems, teaProps } from "@/store";
 import { BASE_TEA } from "@/config";
 import { watch } from "vue";
-import { IceCube, Leaf, PearlBall } from "./items";
-import { Bubble } from "./items";
+import { IceCubes, Leaf, PearlBalls, Bubbles } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -15,9 +14,9 @@ export class Tea {
     private cup: Cup;
     private liquid: Liquid;
     private leaf: Leaf;
-    private bubble: Bubble;
-    private iceCube: IceCube;
-    private pearlBall: PearlBall;
+    private bubbles: Bubbles;
+    private iceCubes: IceCubes;
+    private pearlBalls: PearlBalls;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -45,26 +44,26 @@ export class Tea {
         );
 
         this.leaf = new Leaf(BASE_TEA[teaType].leaf);
-        this.bubble = new Bubble(cupSize, BASE_TEA[teaType].bubble);
-        this.iceCube = new IceCube(cupSize);
-        this.pearlBall = new PearlBall(cupSize);
+        this.bubbles = new Bubbles({ cupSize, visible: BASE_TEA[teaType].bubble });
+        this.iceCubes = new IceCubes({ cupSize });
+        this.pearlBalls = new PearlBalls({ cupSize });
     }
 
     init() {
         this.cup.draw();
         this.liquid.draw();
         this.leaf.draw();
-        this.bubble.draw();
-        this.iceCube.draw();
-        this.pearlBall.draw();
+        this.bubbles.draw();
+        this.iceCubes.draw();
+        this.pearlBalls.draw();
 
         this.container.addChild(
             this.cup,
             this.liquid,
             this.leaf,
-            this.bubble,
-            this.iceCube,
-            this.pearlBall,
+            this.bubbles,
+            this.iceCubes,
+            this.pearlBalls,
         );
         this.container.sortChildren();
 
@@ -84,9 +83,9 @@ export class Tea {
             console.log(cupSize)
             this.changeCupSize(cupSize);
             this.liquid.changeCupSize(cupSize);
-            this.bubble.changeCupSize(cupSize);
-            this.iceCube.changeCupSize(cupSize);
-            this.pearlBall.changeCupSize(cupSize);
+            this.bubbles.changeCupSize(cupSize);
+            this.iceCubes.changeCupSize(cupSize);
+            this.pearlBalls.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -94,12 +93,12 @@ export class Tea {
 
             this.liquid.changeTeaType(teaProps.teaType);
             this.leaf.changeType(baseTea.leaf);
-            this.bubble.changeVisible(baseTea.bubble);
+            this.bubbles.changeVisible(baseTea.bubble);
         });
 
         watch(() => diyItems, () => {
-            this.iceCube.changeVisible(diyItems.some(e => e === 'Ice'));
-            this.pearlBall.changeVisible(diyItems.some(e => e === 'Pearl'))
+            this.iceCubes.changeVisible(diyItems.some(e => e === 'Ice'));
+            this.pearlBalls.changeVisible(diyItems.some(e => e === 'Pearl'))
         }, { deep: true })
     }
 

@@ -1,4 +1,4 @@
 export * from "./leaf";
-export * from "./bubble";
-export * from "./ice_cube";
-export * from "./pearl_ball";
+export * from "./bubbles";
+export * from "./ice_cubes";
+export * from "./pearl_balls";

@@ -1,75 +1,64 @@
 import { CUP_BOTTOM_OFFSET, CUP_HEIGHT, CUP_WIDTH } from "@/config";
 import { CupSize } from "@/types";
-import { Container, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 import random from 'random';
 import { gsap } from "@/plugins";
 import { Power1 } from "gsap";
+import { BaseItemsContainer, Options } from "./base_items_container";
 
-interface PearItem {
-    pearl: Graphics;
-    tween?: gsap.core.Tween
-}
-
-export class PearlBall extends Container {
-    private items: PearItem[] = [];
-    private cupHeight: number;
-    constructor(
-        cupSize: CupSize,
-        isPear?: boolean
-    ) {
-        super();
-        this.visible = !!isPear;
-        this.cupHeight = CUP_HEIGHT[cupSize];
+export class PearlBalls extends BaseItemsContainer {
+    constructor(opt: Options) {
+        super(opt);
 
         const count = random.int(10, 15)
         for (let i = 0; i < count; i++) {
-            this.items.push({
-                pearl: new Graphics()
+            this.group.push({
+                item: new Graphics()
             })
         }
 
-        this.addChild(...this.items.map(e => e.pearl));
+        this.addChild(...this.group.map(e => e.item));
         this.sortChildren();
     }
 
     draw() {
-        for (const item of this.items) {
-            const { pearl } = item;
+        for (const one of this.group) {
+            const { item } = one;
 
-            pearl.clear();
-            pearl.beginFill(0x462713)
+            item.clear();
+            item.beginFill(0x462713)
                 .drawCircle(0, 0, 8)
                 .endFill();
 
-            pearl.beginFill(0xffffff)
+            item.beginFill(0xffffff)
                 .drawCircle(3, 3, 2)
                 .endFill();
 
-            pearl.beginFill(0xffffff)
+            item.beginFill(0xffffff)
                 .drawCircle(0.5, 0.5, 1)
                 .endFill();
 
             const leftOffset = random.int(CUP_BOTTOM_OFFSET + 10, CUP_WIDTH - CUP_BOTTOM_OFFSET - 10);
             const bottomOffset = random.int(10, 60);
-            pearl.position.set(
+            item.position.set(
                 leftOffset,
                 this.cupHeight - bottomOffset
             )
         }
     }
 
-    float() {
+    animate() {
         if (!this.visible) {
-            this.items.forEach(e => e.tween?.kill());
+            this.group.forEach(e => e.tween?.kill());
             return;
         }
-        for (const item of this.items) {
-            const { pearl } = item;
+        for (const one of this.group) {
+            const { item } = one;
             const leftOffset = random.int(CUP_BOTTOM_OFFSET + 10, CUP_WIDTH - CUP_BOTTOM_OFFSET - 10);
             const bottomOffset = random.int(10, 60);
 
-            item.tween?.kill();
-            gsap.set(pearl, {
+            one.tween?.kill();
+            gsap.set(item, {
                 pixi: {
                     x: leftOffset,
                     y: this.cupHeight - bottomOffset,
@@ -78,11 +67,11 @@ export class PearlBall extends Container {
                 }
             });
 
-            item.tween = gsap.to(item.pearl, {
+            one.tween = gsap.to(item, {
                 pixi: {
                     x: leftOffset + random.int(-2, 2),
                     y: this.cupHeight - bottomOffset - random.int(0, 5),
-                    angle: pearl.angle + random.int(-30, 30)
+                    angle: item.angle + random.int(-30, 30)
                 },
                 duration: random.float(2.5, 4),
                 repeat: -1,
@@ -92,13 +81,14 @@ export class PearlBall extends Container {
         }
     }
 
-    changeVisible(isPear?: boolean) {
-        this.visible = !!isPear;
-        this.float();
+    changeVisible(visible?: boolean) {
+        if (this.visible === !!visible) return;
+        this.visible = !!visible;
+        this.animate();
     }
 
     changeCupSize(cupSize: CupSize) {
         this.cupHeight = CUP_HEIGHT[cupSize];
-        this.float();
+        this.animate();
     }
 }

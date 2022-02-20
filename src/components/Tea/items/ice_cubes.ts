@@ -1,28 +1,22 @@
 import { CUP_HEIGHT, LIQUID_TO_TOP_OFFSET } from "@/config";
 import { CupSize } from "@/types";
-import { Container, Graphics, Texture } from "pixi.js";
+import { Graphics, Texture } from "pixi.js";
 import { gsap } from "@/plugins";
 import { Power1 } from "gsap";
 import { radialGradient } from "../utils";
+import { BaseItemsContainer, Options } from "./base_items_container";
 
-
-
-export class IceCube extends Container {
+export class IceCubes extends BaseItemsContainer {
     private cubeTween: gsap.core.Tween;
     private cubeA: Graphics;
     private cubeB: Graphics;
     private cubeC: Graphics;
-    private cupHeight: number;
     private cubeSize: number = 55;
     private cubeTexture: Texture;
-    constructor(
-        cupSize: CupSize,
-        isIceCube?: boolean,
-    ) {
-        super();
+
+    constructor(opt: Options) {
+        super(opt);
         this.zIndex = 45;
-        this.cupHeight = CUP_HEIGHT[cupSize];
-        this.visible = !!isIceCube;
 
         this.cubeA = new Graphics();
         this.cubeA.pivot.set(this.cubeSize / 2, this.cubeSize / 2)
@@ -65,7 +59,7 @@ export class IceCube extends Container {
         }
     }
 
-    float() {
+    animate() {
         if (!this.visible) {
             this.cubeTween.pause();
             return;
@@ -78,11 +72,11 @@ export class IceCube extends Container {
 
     changeCupSize(cupSize: CupSize) {
         this.cupHeight = CUP_HEIGHT[cupSize];
-        this.float();
+        this.animate();
     }
 
-    changeVisible(isIceCube: boolean) {
-        this.visible = isIceCube;
-        this.float();
+    changeVisible(visible?: boolean) {
+        this.visible = !!visible;
+        this.animate();
     }
 }

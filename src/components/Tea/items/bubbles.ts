@@ -1,18 +1,14 @@
 import { CupSize } from "@/types";
-import { Container, Graphics } from "pixi.js";
+import { Graphics } from "pixi.js";
 import { gsap } from "@/plugins";
 import { Power1 } from "gsap";
 import { CUP_HEIGHT, LIQUID_TO_TOP_OFFSET } from "@/config";
+import { BaseItemsContainer, Options } from "./base_items_container";
 
 interface BubbleProps {
     size: number;
     left: number;
     duration: number
-}
-
-interface BubbleItem {
-    bubble: Graphics;
-    tween?: gsap.core.Tween
 }
 
 const BUBBLES_PROPS: BubbleProps[] = [
@@ -38,30 +34,24 @@ const BUBBLES_PROPS: BubbleProps[] = [
     }
 ]
 
-export class Bubble extends Container {
-    private items: BubbleItem[] = [];
-    private cupHeight: number;
-    constructor(
-        cupSize: CupSize,
-        isBubble?: boolean
-    ) {
-        super();
+export class Bubbles extends BaseItemsContainer {
+    constructor(opt: Options) {
+        super(opt);
+
         this.zIndex = 50;
-        this.visible = !!isBubble;
-        this.cupHeight = CUP_HEIGHT[cupSize];
 
         for (let i = 0; i < BUBBLES_PROPS.length; i++) {
-            this.items.push({
-                bubble: new Graphics()
+            this.group.push({
+                item: new Graphics()
             });
         }
-        this.addChild(...this.items.map(e => e.bubble));
+        this.addChild(...this.group.map(e => e.item));
     }
 
     draw() {
-        for (let i = 0; i < this.items.length; i++) {
+        for (let i = 0; i < this.group.length; i++) {
             const props = BUBBLES_PROPS[i];
-            const bubble = this.items[i].bubble;
+            const bubble = this.group[i].item;
             bubble.clear();
 
             bubble.beginFill(0xffffff, 1)
@@ -72,22 +62,22 @@ export class Bubble extends Container {
         }
     }
 
-    bubbling() {
+    animate() {
         if (!this.visible) {
-            this.items.forEach(e => e.tween?.kill());
+            this.group.forEach(e => e.tween?.kill());
             return;
         }
 
-        for (let i = 0; i < this.items.length; i++) {
-            const item = this.items[i]
+        for (let i = 0; i < this.group.length; i++) {
+            const item = this.group[i]
             item.tween?.kill();
-            gsap.set(item.bubble, {
+            gsap.set(item.item, {
                 pixi: {
                     y: this.cupHeight - 5
                 }
             });
 
-            item.tween = gsap.to(item.bubble, {
+            item.tween = gsap.to(item.item, {
                 pixi: {
                     y: LIQUID_TO_TOP_OFFSET + 2,
                 },
@@ -98,13 +88,13 @@ export class Bubble extends Container {
         }
     }
 
-    changeVisible(isBubble?: boolean) {
-        this.visible = !!isBubble;
-        this.bubbling();
+    changeVisible(visible?: boolean) {
+        this.visible = !!visible;
+        this.animate();
     }
 
     changeCupSize(cupSize: CupSize) {
         this.cupHeight = CUP_HEIGHT[cupSize];
-        this.bubbling();
+        this.animate();
     }
 }
