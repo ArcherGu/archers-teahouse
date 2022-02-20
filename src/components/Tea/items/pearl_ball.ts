@@ -45,6 +45,10 @@ export class PearlBall extends Container {
                 .drawCircle(3, 3, 2)
                 .endFill();
 
+            pearl.beginFill(0xffffff)
+                .drawCircle(0.5, 0.5, 1)
+                .endFill();
+
             const leftOffset = random.int(CUP_BOTTOM_OFFSET + 10, CUP_WIDTH - CUP_BOTTOM_OFFSET - 10);
             const bottomOffset = random.int(10, 60);
             pearl.position.set(
