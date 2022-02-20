@@ -13,14 +13,27 @@ export interface Options {
     visible?: boolean
 }
 
-export abstract class BaseItemsContainer extends Container {
+export abstract class BaseItemsContainer {
     protected group: BaseItem[] = [];
-    protected cupHeight: number = 0;
+    protected cupHeight: number;
+    private _visible: boolean
 
     constructor({ cupSize = 'M', visible = false }: Options) {
-        super();
-        this.visible = visible;
+        this._visible = visible;
         this.cupHeight = CUP_HEIGHT[cupSize];
+    }
+
+    get items() {
+        return this.group.map(e => e.item);
+    }
+
+    get visible() {
+        return this._visible;
+    }
+
+    set visible(val: boolean) {
+        this._visible = val;
+        this.group.forEach(e => e.item && (e.item.visible = val))
     }
 
     abstract draw(): any

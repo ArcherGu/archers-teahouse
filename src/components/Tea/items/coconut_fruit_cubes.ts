@@ -10,17 +10,12 @@ export class CoconutFruitCubes extends BaseItemsContainer {
     constructor(opt: Options) {
         super(opt);
 
-        this.zIndex = 55;
-
         const count = random.int(30, 50)
         for (let i = 0; i < count; i++) {
-            this.group.push({
-                item: new Graphics()
-            })
+            const item = new Graphics();
+            item.visible = this.visible;
+            this.group.push({ item });
         }
-
-        this.addChild(...this.group.map(e => e.item));
-        this.sortChildren();
     }
 
     draw() {

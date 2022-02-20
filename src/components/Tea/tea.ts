@@ -64,10 +64,10 @@ export class Tea {
             this.cup,
             this.liquid,
             this.leaf,
-            this.bubbles,
-            this.iceCubes,
-            this.pearlBalls,
-            this.coconutFruitCubes
+            ...this.bubbles.items,
+            ...this.iceCubes.items,
+            ...this.pearlBalls.items,
+            ...this.coconutFruitCubes.items
         );
         this.container.sortChildren();
 
@@ -105,6 +105,8 @@ export class Tea {
             this.iceCubes.changeVisible(diyItems.some(e => e === 'Ice'));
             this.pearlBalls.changeVisible(diyItems.some(e => e === 'Pearl'));
             this.coconutFruitCubes.changeVisible(diyItems.some(e => e === 'CoconutFruit'));
+
+            this.container.sortChildren();
         }, { deep: true })
     }
 

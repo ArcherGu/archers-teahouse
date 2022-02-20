@@ -38,14 +38,12 @@ export class Bubbles extends BaseItemsContainer {
     constructor(opt: Options) {
         super(opt);
 
-        this.zIndex = 50;
-
         for (let i = 0; i < BUBBLES_PROPS.length; i++) {
-            this.group.push({
-                item: new Graphics()
-            });
+            const item = new Graphics();
+            item.visible = this.visible;
+            item.zIndex = 99;
+            this.group.push({ item });
         }
-        this.addChild(...this.group.map(e => e.item));
     }
 
     draw() {

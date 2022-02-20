@@ -8,7 +8,7 @@ export class Cup extends Graphics {
         private cupSize: CupSize,
     ) {
         super();
-        this.zIndex = 100;
+        this.zIndex = 101;
 
         const shadowFilter = new DropShadowFilter();
         shadowFilter.color = 0x000000;

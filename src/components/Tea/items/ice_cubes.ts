@@ -7,23 +7,20 @@ import { radialGradient } from "../utils";
 import { BaseItemsContainer, Options } from "./base_items_container";
 
 export class IceCubes extends BaseItemsContainer {
-    private cubeTween: gsap.core.Tween;
-    private cubeA: Graphics;
-    private cubeB: Graphics;
-    private cubeC: Graphics;
     private cubeSize: number = 55;
     private cubeTexture: Texture;
 
     constructor(opt: Options) {
         super(opt);
-        this.zIndex = 45;
 
-        this.cubeA = new Graphics();
-        this.cubeA.pivot.set(this.cubeSize / 2, this.cubeSize / 2)
-        this.cubeA.position.set(80, LIQUID_TO_TOP_OFFSET + 5 + this.cubeSize / 2);
-        this.cubeA.angle = -5;
+        const cubeA = new Graphics();
+        cubeA.name = 'cubeA';
+        cubeA.pivot.set(this.cubeSize / 2, this.cubeSize / 2)
+        cubeA.position.set(80, LIQUID_TO_TOP_OFFSET + 5 + this.cubeSize / 2);
+        cubeA.angle = -5;
+        cubeA.zIndex = 45;
 
-        this.cubeTween = gsap.to(this.cubeA, {
+        const tweenCubeA = gsap.to(cubeA, {
             pixi: {
                 y: LIQUID_TO_TOP_OFFSET + this.cubeSize / 2 - 5,
                 angle: 5
@@ -34,24 +31,36 @@ export class IceCubes extends BaseItemsContainer {
             ease: Power1.easeInOut
         })
 
-        this.cubeB = new Graphics();
-        this.cubeB.position.set(60, this.cupHeight - this.cubeSize - 2)
-        this.cubeB.angle = -5;
+        this.group.push({
+            item: cubeA,
+            tween: tweenCubeA
+        })
 
-        this.cubeC = new Graphics();
-        this.cubeC.position.set(112, this.cupHeight - this.cubeSize * 2 - 7)
-        this.cubeC.angle = 20;
+        const cubeB = new Graphics();
+        cubeB.name = 'cubeB';
+        cubeB.position.set(60, this.cupHeight - this.cubeSize - 2)
+        cubeB.angle = -5;
+        cubeB.zIndex = 30;
+        this.group.push({ item: cubeB });
 
-        this.addChild(this.cubeA, this.cubeB, this.cubeC);
+        const cubeC = new Graphics();
+        cubeC.name = 'cubeC';
+        cubeC.position.set(112, this.cupHeight - this.cubeSize * 2 - 7)
+        cubeC.angle = 20;
+        cubeC.zIndex = 55;
+        this.group.push({ item: cubeC });
 
         this.cubeTexture = radialGradient('rgb(192 202 211 / 70%)', 'rgb(255 255 255 / 70%)', this.cubeSize, this.cubeSize, 1 / 4);
+
+        const { visible = false } = opt;
+        this.visible = visible;
     }
 
     draw() {
-        for (const cube of [this.cubeA, this.cubeB, this.cubeC]) {
-            cube.clear();
+        for (const { item } of this.group) {
+            item.clear();
 
-            cube.beginTextureFill({
+            item.beginTextureFill({
                 texture: this.cubeTexture
             })
                 .drawRoundedRect(0, 0, this.cubeSize, this.cubeSize, 5)
@@ -60,14 +69,19 @@ export class IceCubes extends BaseItemsContainer {
     }
 
     animate() {
+        const cubeA = this.group.find(e => e.item.name === 'cubeA');
         if (!this.visible) {
-            this.cubeTween.pause();
+            cubeA?.tween?.pause();
             return;
         }
 
-        this.cubeTween.play();
-        this.cubeB.position.set(60, this.cupHeight - this.cubeSize - 2);
-        this.cubeC.position.set(112, this.cupHeight - this.cubeSize * 2 - 7);
+        cubeA?.tween?.play();
+
+        const cubeB = this.group.find(e => e.item.name === 'cubeB')?.item;
+        const cubeC = this.group.find(e => e.item.name === 'cubeC')?.item;
+
+        cubeB?.position.set(60, this.cupHeight - this.cubeSize - 2);
+        cubeC?.position.set(112, this.cupHeight - this.cubeSize * 2 - 7);
     }
 
     changeCupSize(cupSize: CupSize) {
