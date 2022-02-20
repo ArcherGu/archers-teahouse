@@ -19,7 +19,6 @@ export abstract class BaseItemsContainer extends Container {
 
     constructor({ cupSize = 'M', visible = false }: Options) {
         super();
-
         this.visible = visible;
         this.cupHeight = CUP_HEIGHT[cupSize];
     }

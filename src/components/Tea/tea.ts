@@ -6,7 +6,7 @@ import { Liquid } from "./liquid";
 import { bgColor, diyItems, teaProps } from "@/store";
 import { BASE_TEA } from "@/config";
 import { watch } from "vue";
-import { IceCubes, Leaf, PearlBalls, Bubbles } from "./items";
+import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -17,6 +17,7 @@ export class Tea {
     private bubbles: Bubbles;
     private iceCubes: IceCubes;
     private pearlBalls: PearlBalls;
+    private coconutFruitCubes: CoconutFruitCubes;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -47,6 +48,7 @@ export class Tea {
         this.bubbles = new Bubbles({ cupSize, visible: BASE_TEA[teaType].bubble });
         this.iceCubes = new IceCubes({ cupSize });
         this.pearlBalls = new PearlBalls({ cupSize });
+        this.coconutFruitCubes = new CoconutFruitCubes({ cupSize });
     }
 
     init() {
@@ -56,6 +58,7 @@ export class Tea {
         this.bubbles.draw();
         this.iceCubes.draw();
         this.pearlBalls.draw();
+        this.coconutFruitCubes.draw();
 
         this.container.addChild(
             this.cup,
@@ -64,6 +67,7 @@ export class Tea {
             this.bubbles,
             this.iceCubes,
             this.pearlBalls,
+            this.coconutFruitCubes
         );
         this.container.sortChildren();
 
@@ -86,6 +90,7 @@ export class Tea {
             this.bubbles.changeCupSize(cupSize);
             this.iceCubes.changeCupSize(cupSize);
             this.pearlBalls.changeCupSize(cupSize);
+            this.coconutFruitCubes.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -98,7 +103,8 @@ export class Tea {
 
         watch(() => diyItems, () => {
             this.iceCubes.changeVisible(diyItems.some(e => e === 'Ice'));
-            this.pearlBalls.changeVisible(diyItems.some(e => e === 'Pearl'))
+            this.pearlBalls.changeVisible(diyItems.some(e => e === 'Pearl'));
+            this.coconutFruitCubes.changeVisible(diyItems.some(e => e === 'CoconutFruit'));
         }, { deep: true })
     }
 
