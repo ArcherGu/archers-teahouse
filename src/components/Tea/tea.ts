@@ -6,7 +6,7 @@ import { Liquid } from "./liquid";
 import { bgColor, diyItems, teaProps } from "@/store";
 import { BASE_TEA } from "@/config";
 import { watch } from "vue";
-import { IceCube, Leaf } from "./items";
+import { IceCube, Leaf, PearlBall } from "./items";
 import { Bubble } from "./items";
 
 export class Tea {
@@ -17,6 +17,7 @@ export class Tea {
     private leaf: Leaf;
     private bubble: Bubble;
     private iceCube: IceCube;
+    private pearlBall: PearlBall;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -46,6 +47,7 @@ export class Tea {
         this.leaf = new Leaf(BASE_TEA[teaType].leaf);
         this.bubble = new Bubble(cupSize, BASE_TEA[teaType].bubble);
         this.iceCube = new IceCube(cupSize);
+        this.pearlBall = new PearlBall(cupSize);
     }
 
     init() {
@@ -54,13 +56,15 @@ export class Tea {
         this.leaf.draw();
         this.bubble.draw();
         this.iceCube.draw();
+        this.pearlBall.draw();
 
         this.container.addChild(
             this.cup,
             this.liquid,
             this.leaf,
             this.bubble,
-            this.iceCube
+            this.iceCube,
+            this.pearlBall,
         );
         this.container.sortChildren();
 
@@ -82,6 +86,7 @@ export class Tea {
             this.liquid.changeCupSize(cupSize);
             this.bubble.changeCupSize(cupSize);
             this.iceCube.changeCupSize(cupSize);
+            this.pearlBall.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -94,6 +99,7 @@ export class Tea {
 
         watch(() => diyItems, () => {
             this.iceCube.changeVisible(diyItems.some(e => e === 'Ice'));
+            this.pearlBall.changeVisible(diyItems.some(e => e === 'Pearl'))
         }, { deep: true })
     }
 
