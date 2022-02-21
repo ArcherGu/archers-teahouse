@@ -19,7 +19,7 @@ export class Slogan extends Container {
     }
 
     updatePosition() {
-        this.position.set(-this.width / 6, this.cupHeight + this.height - 10)
+        this.position.set(-this.width / 6, this.cupHeight + this.height - 25)
     }
 
     changeVisible(visible?: boolean) {
