@@ -3,10 +3,10 @@ import { AbstractRenderer, autoDetectRenderer, Container, Graphics } from "pixi.
 import { Cup } from "./cup";
 import { gsap } from "@/plugins";
 import { Liquid } from "./liquid";
-import { bgColor, diyItems, teaProps } from "@/store";
+import { bgColor, diyItems, makeStep, teaProps } from "@/store";
 import { BASE_TEA, CUP_HEIGHT, CUP_WIDTH } from "@/config";
 import { watch } from "vue";
-import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips } from "./items";
+import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips, Straw } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -22,6 +22,7 @@ export class Tea {
     private pearlBalls: PearlBalls;
     private coconutFruitCubes: CoconutFruitCubes;
     private lemonChips: LemonChips;
+    private straw: Straw;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -61,6 +62,7 @@ export class Tea {
         this.pearlBalls = new PearlBalls({ cupSize });
         this.coconutFruitCubes = new CoconutFruitCubes({ cupSize });
         this.lemonChips = new LemonChips({ cupSize });
+        this.straw = new Straw(cupSize);
     }
 
     init() {
@@ -77,6 +79,7 @@ export class Tea {
             this.cup,
             this.liquid,
             this.leaf,
+            this.straw,
             ...this.bubbles.items,
             ...this.iceCubes.items,
             ...this.pearlBalls.items,
@@ -108,6 +111,7 @@ export class Tea {
             this.pearlBalls.changeCupSize(cupSize);
             this.coconutFruitCubes.changeCupSize(cupSize);
             this.lemonChips.changeCupSize(cupSize);
+            this.straw.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -118,11 +122,16 @@ export class Tea {
             this.bubbles.changeVisible(baseTea.bubble);
         });
 
+        watch(makeStep, () => {
+            this.straw.changeVisible(makeStep.value === 'ENJOY');
+        })
+
         watch(() => diyItems, () => {
             this.iceCubes.changeVisible(diyItems.some(e => e === 'Ice'));
             this.pearlBalls.changeVisible(diyItems.some(e => e === 'Pearl'));
             this.coconutFruitCubes.changeVisible(diyItems.some(e => e === 'CoconutFruit'));
             this.lemonChips.changeVisible(diyItems.some(e => e === 'Lemon'));
+            this.straw.changeType(diyItems.some(e => e === 'Pearl' || e === 'CoconutFruit'));
 
             this.container.sortChildren();
         }, { deep: true })
