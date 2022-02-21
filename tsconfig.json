@@ -21,6 +21,7 @@
         },
         "types": [
             "unplugin-icons/types/vue",
+            "offscreencanvas"
         ]
     },
     "include": [
