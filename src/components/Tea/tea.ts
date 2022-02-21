@@ -6,7 +6,7 @@ import { Liquid } from "./liquid";
 import { bgColor, diyItems, makeStep, teaProps } from "@/store";
 import { BASE_TEA, CUP_HEIGHT, CUP_WIDTH } from "@/config";
 import { watch } from "vue";
-import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips, Straw, Slogan } from "./items";
+import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips, Straw, Slogan, ImageInfo } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -24,6 +24,7 @@ export class Tea {
     private lemonChips: LemonChips;
     private straw: Straw;
     private slogan: Slogan;
+    private imageInfo: ImageInfo;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -43,10 +44,12 @@ export class Tea {
 
         // init container and image box
         this.container = new Container();
+        this.imageInfo = new ImageInfo();
         this.imageBox = new Graphics();
         this.imageBox.name = "imageBox";
         this.drawImageBox(width, height);
-        this.imageBox.addChild(this.container)
+
+        this.imageBox.addChild(this.container, this.imageInfo)
         this.imageContainer = new Container();
         this.imageContainer.addChild(this.imageBox);
 
@@ -172,6 +175,8 @@ export class Tea {
                 }
             }
         );
+
+        this.imageInfo.updatePosition(this.imageBox.width, this.imageBox.height)
     }
 
     animate() {
@@ -182,10 +187,12 @@ export class Tea {
 
     drawImageBox(width: number, height: number) {
         this.imageBox.beginFill(this.backgroundColor).drawRect(0, 0, width < 400 ? width : 400, height < 800 ? height : 800).endFill();
-
     }
 
     toImage() {
-        return this.renderer.plugins.extract.image(this.imageContainer).src;
+        this.imageInfo.changeVisible(true);
+        const data = this.renderer.plugins.extract.image(this.imageContainer).src;
+        this.imageInfo.changeVisible(false);
+        return data;
     }
 }
