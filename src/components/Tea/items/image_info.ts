@@ -20,8 +20,9 @@ export class ImageInfo extends Container {
     }
 
     updatePosition(imageWidth: number, imageHeight: number) {
-        this.logoSprite.position.set(imageWidth - this.logoSprite.width - 20, this.logoSprite.height / 2)
-        this.position.set(10, imageHeight - this.height - 10)
+        this.logoSprite.position.set(10, 10)
+        this.qrSprite.position.set(imageWidth - this.qrSprite.width - 10, imageHeight - this.qrSprite.height - 10)
+        // this.position.set(10, imageHeight - this.height - 10)
     }
 
     changeVisible(visible?: boolean) {

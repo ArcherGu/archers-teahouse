@@ -186,7 +186,9 @@ export class Tea {
     }
 
     drawImageBox(width: number, height: number) {
-        this.imageBox.beginFill(this.backgroundColor).drawRect(0, 0, width < 400 ? width : 400, height < 800 ? height : 800).endFill();
+        const boxWidth = width < 400 ? (width < 250 ? 250 : width) : 400;
+        const boxHeight = height < 800 ? (height < 600 ? 600 : height) : 800;
+        this.imageBox.beginFill(this.backgroundColor).drawRect(0, 0, boxWidth, boxHeight).endFill();
     }
 
     toImage() {
