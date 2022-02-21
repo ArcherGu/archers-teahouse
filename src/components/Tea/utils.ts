@@ -1,18 +1,19 @@
-import { TeaType } from "@/types";
 import { Container, Graphics, Texture } from "pixi.js";
 
 export function setMask(container: Container) {
+    const index = container.children.findIndex(e => e.name === "dev_mask")
+    if (index > -1) {
+        container.removeChildAt(index);
+    }
+
     const mask = new Graphics();
     mask.beginFill(0x66CCFF, 0.2);
     mask.lineStyle(1, 0xFF3300, 1);
     mask.drawRect(0, 0, container.width, container.height);
     mask.endFill();
-
+    mask.zIndex = 1000;
     mask.name = "dev_mask"
-    const index = container.children.findIndex(e => e.name === "dev_mask")
-    if (index > -1) {
-        container.removeChildAt(index)
-    }
+
     container.addChild(mask)
 }
 

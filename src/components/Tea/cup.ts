@@ -23,7 +23,7 @@ export class Cup extends Graphics {
         const cupHeight = CUP_HEIGHT[this.cupSize];
         this.clear();
         this.moveTo(0, 0);
-        this.lineStyle(4, 0xFFFFFF, 1);
+        this.lineStyle(4, 0xFFFFFF, 0.6);
         // left
         this.lineTo(CUP_BOTTOM_OFFSET, cupHeight);
         // bottom
@@ -31,7 +31,7 @@ export class Cup extends Graphics {
         // right
         this.lineTo(CUP_WIDTH, 0);
 
-        this.lineStyle(1, 0xFFFFFF, 1);
+        this.lineStyle(1, 0xFFFFFF, 0.6);
         // top
         this.lineTo(0, 0);
     }

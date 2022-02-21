@@ -1,5 +1,4 @@
-import { Container, Graphics } from "pixi.js";
-import { gsap } from "@/plugins";
+import { Graphics } from "pixi.js";
 import { CupSize } from "@/types";
 import { CUP_HEIGHT } from "@/config";
 

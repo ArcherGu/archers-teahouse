@@ -1,12 +1,12 @@
 import { CupSize } from "@/types";
-import { AbstractRenderer, autoDetectRenderer, Container, Graphics } from "pixi.js";
+import { AbstractRenderer, autoDetectRenderer, Container } from "pixi.js";
 import { Cup } from "./cup";
 import { gsap } from "@/plugins";
 import { Liquid } from "./liquid";
 import { bgColor, diyItems, teaProps } from "@/store";
-import { BASE_TEA } from "@/config";
+import { BASE_TEA, CUP_HEIGHT, CUP_WIDTH } from "@/config";
 import { watch } from "vue";
-import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes } from "./items";
+import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -18,6 +18,7 @@ export class Tea {
     private iceCubes: IceCubes;
     private pearlBalls: PearlBalls;
     private coconutFruitCubes: CoconutFruitCubes;
+    private lemonChips: LemonChips;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -49,6 +50,7 @@ export class Tea {
         this.iceCubes = new IceCubes({ cupSize });
         this.pearlBalls = new PearlBalls({ cupSize });
         this.coconutFruitCubes = new CoconutFruitCubes({ cupSize });
+        this.lemonChips = new LemonChips({ cupSize });
     }
 
     init() {
@@ -59,6 +61,7 @@ export class Tea {
         this.iceCubes.draw();
         this.pearlBalls.draw();
         this.coconutFruitCubes.draw();
+        this.lemonChips.draw();
 
         this.container.addChild(
             this.cup,
@@ -67,7 +70,8 @@ export class Tea {
             ...this.bubbles.items,
             ...this.iceCubes.items,
             ...this.pearlBalls.items,
-            ...this.coconutFruitCubes.items
+            ...this.coconutFruitCubes.items,
+            ...this.lemonChips.items
         );
         this.container.sortChildren();
 
@@ -84,13 +88,13 @@ export class Tea {
         })
 
         watch(() => teaProps.cupSize, (cupSize) => {
-            console.log(cupSize)
             this.changeCupSize(cupSize);
             this.liquid.changeCupSize(cupSize);
             this.bubbles.changeCupSize(cupSize);
             this.iceCubes.changeCupSize(cupSize);
             this.pearlBalls.changeCupSize(cupSize);
             this.coconutFruitCubes.changeCupSize(cupSize);
+            this.lemonChips.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -105,6 +109,7 @@ export class Tea {
             this.iceCubes.changeVisible(diyItems.some(e => e === 'Ice'));
             this.pearlBalls.changeVisible(diyItems.some(e => e === 'Pearl'));
             this.coconutFruitCubes.changeVisible(diyItems.some(e => e === 'CoconutFruit'));
+            this.lemonChips.changeVisible(diyItems.some(e => e === 'Lemon'));
 
             this.container.sortChildren();
         }, { deep: true })
@@ -123,13 +128,12 @@ export class Tea {
     }
 
     updatePosition(viewWidth: number, viewHeight: number) {
-        const { width, height } = this.container;
         gsap.to(this.container,
             {
                 duration: 0.5,
                 pixi: {
-                    x: (viewWidth - width) / 2,
-                    y: (viewHeight - height) / 2
+                    x: (viewWidth - CUP_WIDTH) / 2,
+                    y: (viewHeight - CUP_HEIGHT[teaProps.cupSize]) / 2
                 }
             }
         );
