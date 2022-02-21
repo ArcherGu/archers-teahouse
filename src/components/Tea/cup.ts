@@ -12,8 +12,8 @@ export class Cup extends Graphics {
 
         const shadowFilter = new DropShadowFilter();
         shadowFilter.color = 0x000000;
-        shadowFilter.alpha = 0.25;
-        shadowFilter.blur = 2
+        shadowFilter.alpha = 0.2;
+        shadowFilter.blur = 3
         shadowFilter.distance = 5;
 
         this.filters = [shadowFilter]

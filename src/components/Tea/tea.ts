@@ -38,7 +38,8 @@ export class Tea {
             height,
             antialias: true,
             backgroundColor: this.backgroundColor,
-            resolution: 1,
+            resolution: window.devicePixelRatio || 1,
+            autoDensity: true,
             view
         });
 
@@ -97,8 +98,7 @@ export class Tea {
         this.watch();
         this.animate();
 
-        const { width, height } = this.renderer;
-        this.updatePosition(width, height);
+        this.updatePosition();
     }
 
     watch() {
@@ -148,21 +148,21 @@ export class Tea {
     resize(width: number, height: number) {
         this.renderer.resize(width, height);
         this.drawImageBox(width, height);
-        this.updatePosition(width, height);
+        this.updatePosition();
     }
 
     changeCupSize(size: CupSize) {
         this.cup.changeSize(size);
-        const { width, height } = this.renderer;
-        this.updatePosition(width, height);
+        this.updatePosition();
     }
 
-    updatePosition(viewWidth: number, viewHeight: number) {
+    updatePosition() {
+        const { width, height } = this.renderer;
         gsap.to(this.imageBox, {
             duration: 0.5,
             pixi: {
-                x: (viewWidth - this.imageBox.width) / 2,
-                y: (viewHeight - this.imageBox.height) / 2
+                x: (width / window.devicePixelRatio - this.imageBox.width) / 2,
+                y: (height / window.devicePixelRatio - this.imageBox.height) / 2
             }
         });
 
@@ -193,7 +193,9 @@ export class Tea {
 
     toImage() {
         this.imageInfo.changeVisible(true);
-        const data = this.renderer.plugins.extract.image(this.imageContainer).src;
+        this.imageBox.scale.set(3, 3)
+        const data = this.renderer.plugins.extract.image(this.imageContainer, "image/jpeg", 1).src;
+        this.imageBox.scale.set(1, 1)
         this.imageInfo.changeVisible(false);
         return data;
     }
