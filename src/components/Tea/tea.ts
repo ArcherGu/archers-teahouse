@@ -167,10 +167,11 @@ export class Tea {
     }
 
     drawImageBox(width: number, height: number) {
-        this.imageBox.beginFill(this.backgroundColor, 1).drawRect(0, 0, width < 400 ? width : 400, height < 800 ? height : 800).endFill();
+        this.imageBox.beginFill(this.backgroundColor).drawRect(0, 0, width < 400 ? width : 400, height < 800 ? height : 800).endFill();
+
     }
 
     toImage() {
-        return this.renderer.plugins.extract.image(this.imageBox).src;
+        return this.renderer.plugins.extract.image(this.imageContainer).src;
     }
 }

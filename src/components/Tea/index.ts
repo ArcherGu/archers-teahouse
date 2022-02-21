@@ -1,1 +1,1 @@
-export { Tea } from "./tea"; 
+export { default as Tea } from "./Tea.vue"

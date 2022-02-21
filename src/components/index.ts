@@ -1,2 +1,2 @@
-export { default as Tea } from "./TeaEx.vue";
+export * from "./Tea";
 export { default as WaySwitch } from "./WaySwitch.vue";

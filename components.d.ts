@@ -4,13 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseTea: typeof import('./src/components/BaseTea.vue')['default']
-    Bubble: typeof import('./src/components/items/Bubble.vue')['default']
-    CoconutFruitCube: typeof import('./src/components/items/CoconutFruitCube.vue')['default']
-    Cup: typeof import('./src/components/Cup.vue')['default']
-    CupEx: typeof import('./src/components/CupEx.vue')['default']
     IAkarIconsArrowBack: typeof import('~icons/akar-icons/arrow-back')['default']
-    IceCube: typeof import('./src/components/items/IceCube.vue')['default']
     IFaSolidPlus: typeof import('~icons/fa-solid/plus')['default']
     IFluentShareAndroid24Regular: typeof import('~icons/fluent/share-android24-regular')['default']
     IIconParkShop: typeof import('~icons/icon-park/shop')['default']
@@ -18,12 +12,7 @@ declare module 'vue' {
     INotoV1RedHeart: typeof import('~icons/noto-v1/red-heart')['default']
     INotoV1TwoHearts: typeof import('~icons/noto-v1/two-hearts')['default']
     ITwemojiRollingOnTheFloorLaughing: typeof import('~icons/twemoji/rolling-on-the-floor-laughing')['default']
-    Leaf: typeof import('./src/components/items/Leaf.vue')['default']
-    LemonSlice: typeof import('./src/components/items/LemonSlice.vue')['default']
-    PearlBall: typeof import('./src/components/items/PearlBall.vue')['default']
-    Straw: typeof import('./src/components/items/Straw.vue')['default']
-    Tea: typeof import('./src/components/Tea.vue')['default']
-    TeaEx: typeof import('./src/components/TeaEx.vue')['default']
+    Tea: typeof import('./src/components/Tea/Tea.vue')['default']
     WaySwitch: typeof import('./src/components/WaySwitch.vue')['default']
   }
 }

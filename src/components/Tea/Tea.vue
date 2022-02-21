@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { ref, watch, onUnmounted } from 'vue';
 import { unrefElement } from '@vueuse/core';
-import { Tea } from './Tea';
+import { Tea } from './tea';
 import { makeStep } from '@/store';
 
 const canvasWrapper = ref(null);
