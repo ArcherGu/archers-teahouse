@@ -37,26 +37,11 @@
         <DiyStep />
         <EnjoyStep />
         <div class="tea-wrapper">
-            <!-- <div id="tea-share-box">
-                <Tea />
-
-                <img
-                    :src="slogan"
-                    alt="不上茶屋特供"
-                    class="slogan-img"
-                    v-if="makeStep === 'ENJOY' && !isShareModal"
-                />
-            </div>-->
-
-            <Tea />
+            <Tea ref="teaRef" />
         </div>
 
         <transition name="slide-x">
-            <button
-                class="top-btn tea-share-btn"
-                v-if="makeStep === 'ENJOY' && !isIOS"
-                @click="shareTea"
-            >
+            <button class="top-btn tea-share-btn" v-if="makeStep === 'ENJOY'" @click="shareTea">
                 <i-fluent-share-android-24-regular />
             </button>
         </transition>
@@ -86,15 +71,13 @@
 import { Tea, WaySwitch } from "./components";
 import { makeStep, changeStep, bgColor } from "./store";
 import logo from "@/assets/logo.png";
-import slogan from "@/assets/slogan.png";
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { BaseStep, DiyStep, EnjoyStep } from "./steps";
-import domtoimage from 'dom-to-image';
 
 const isHimself = ref(false);
-
 const isShareModal = ref(false);
 const teaShareImg = ref<string>("");
+const teaRef = ref();
 
 watch(
     () => makeStep.value,
@@ -105,19 +88,9 @@ watch(
         }
     }
 )
-// const isIOS = false;
-const isIOS = computed(() => !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/));
 
 const shareTea = async () => {
-    const teaShareEl = document.getElementById("tea-share-box");
-    if (!teaShareEl) return;
-
-    teaShareImg.value = await domtoimage.toPng(teaShareEl, {
-        bgcolor: bgColor.value,
-        style: {
-            paddingTop: "150px",
-        }
-    });
+    teaShareImg.value = teaRef.value.toImage();
     isShareModal.value = true
 }
 

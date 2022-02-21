@@ -23,6 +23,10 @@ const onResize = () => {
     tea?.resize(width, height)
 }
 
+const toImage = () => {
+    return tea?.toImage();
+}
+
 watch(canvasWrapper, () => {
     const wrapper = unrefElement(canvasWrapper) as HTMLElement;
     if (!wrapper) return;
@@ -41,6 +45,10 @@ watch(() => makeStep.value, () => {
 
 onUnmounted(() => {
     window.removeEventListener('resize', onResize, false)
+})
+
+defineExpose({
+    toImage
 })
 </script>
 

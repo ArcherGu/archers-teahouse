@@ -1,5 +1,5 @@
 import { CupSize } from "@/types";
-import { AbstractRenderer, autoDetectRenderer, Container } from "pixi.js";
+import { AbstractRenderer, autoDetectRenderer, Container, Graphics } from "pixi.js";
 import { Cup } from "./cup";
 import { gsap } from "@/plugins";
 import { Liquid } from "./liquid";
@@ -10,6 +10,9 @@ import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips } fr
 
 export class Tea {
     private renderer: AbstractRenderer;
+    private backgroundColor: number = 0xe4e4e7;
+    private imageContainer: Container;
+    private imageBox: Graphics;
     private container: Container;
     private cup: Cup;
     private liquid: Liquid;
@@ -31,12 +34,19 @@ export class Tea {
             width,
             height,
             antialias: true,
-            backgroundColor: 0xe4e4e7,
+            backgroundColor: this.backgroundColor,
             resolution: 1,
             view
         });
 
+        // init container and image box
         this.container = new Container();
+        this.imageBox = new Graphics();
+        this.imageBox.name = "imageBox";
+        this.drawImageBox(width, height);
+        this.imageBox.addChild(this.container)
+        this.imageContainer = new Container();
+        this.imageContainer.addChild(this.imageBox);
 
         const { cupSize, teaType } = teaProps;
         this.cup = new Cup(cupSize);
@@ -75,16 +85,19 @@ export class Tea {
         );
         this.container.sortChildren();
 
-        const { width, height } = this.renderer;
-        this.container.position.set((width - this.container.width) / 2, (height - this.container.height) / 2);
-
         this.watch();
         this.animate();
+
+        const { width, height } = this.renderer;
+        this.updatePosition(width, height);
     }
 
     watch() {
         watch(bgColor, (color) => {
-            this.renderer.backgroundColor = parseInt(color.replace('#', ''), 16);
+            this.backgroundColor = parseInt(color.replace('#', ''), 16);
+            this.renderer.backgroundColor = this.backgroundColor;
+            const { width, height } = this.renderer;
+            this.drawImageBox(width, height)
         })
 
         watch(() => teaProps.cupSize, (cupSize) => {
@@ -116,8 +129,8 @@ export class Tea {
     }
 
     resize(width: number, height: number) {
-        console.log("DO RESIZE")
         this.renderer.resize(width, height);
+        this.drawImageBox(width, height);
         this.updatePosition(width, height);
     }
 
@@ -128,20 +141,36 @@ export class Tea {
     }
 
     updatePosition(viewWidth: number, viewHeight: number) {
+        gsap.to(this.imageBox, {
+            duration: 0.5,
+            pixi: {
+                x: (viewWidth - this.imageBox.width) / 2,
+                y: (viewHeight - this.imageBox.height) / 2
+            }
+        });
+
         gsap.to(this.container,
             {
                 duration: 0.5,
                 pixi: {
-                    x: (viewWidth - CUP_WIDTH) / 2,
-                    y: (viewHeight - CUP_HEIGHT[teaProps.cupSize]) / 2
+                    x: (this.imageBox.width - CUP_WIDTH) / 2,
+                    y: (this.imageBox.height - CUP_HEIGHT[teaProps.cupSize]) / 2
                 }
             }
         );
     }
 
     animate() {
-        this.renderer.render(this.container);
+        this.renderer.render(this.imageContainer);
         this.liquid.animate();
         requestAnimationFrame(this.animate.bind(this));
+    }
+
+    drawImageBox(width: number, height: number) {
+        this.imageBox.beginFill(this.backgroundColor, 1).drawRect(0, 0, width < 400 ? width : 400, height < 800 ? height : 800).endFill();
+    }
+
+    toImage() {
+        return this.renderer.plugins.extract.image(this.imageBox).src;
     }
 }
