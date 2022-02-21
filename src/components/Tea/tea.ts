@@ -48,7 +48,7 @@ export class Tea {
         this.imageInfo = new ImageInfo();
         this.imageBox = new Graphics();
         this.imageBox.name = "imageBox";
-        this.drawImageBox(width, height);
+        this.drawImageBox();
 
         this.imageBox.addChild(this.container, this.imageInfo)
         this.imageContainer = new Container();
@@ -105,8 +105,7 @@ export class Tea {
         watch(bgColor, (color) => {
             this.backgroundColor = parseInt(color.replace('#', ''), 16);
             this.renderer.backgroundColor = this.backgroundColor;
-            const { width, height } = this.renderer;
-            this.drawImageBox(width, height)
+            this.drawImageBox()
         })
 
         watch(() => teaProps.cupSize, (cupSize) => {
@@ -147,7 +146,7 @@ export class Tea {
 
     resize(width: number, height: number) {
         this.renderer.resize(width, height);
-        this.drawImageBox(width, height);
+        this.drawImageBox();
         this.updatePosition();
     }
 
@@ -185,9 +184,13 @@ export class Tea {
         requestAnimationFrame(this.animate.bind(this));
     }
 
-    drawImageBox(width: number, height: number) {
+    drawImageBox() {
+        const { width: originalWidth, height: originalHeight } = this.renderer;
+        const width = originalWidth / window.devicePixelRatio;
+        const height = originalHeight / window.devicePixelRatio;
+
         const boxWidth = width < 400 ? (width < 250 ? 250 : width) : 400;
-        const boxHeight = height < 800 ? (height < 600 ? 600 : height) : 800;
+        const boxHeight = height < 750 ? (height < 600 ? 600 : height) : 750;
         this.imageBox.beginFill(this.backgroundColor).drawRect(0, 0, boxWidth, boxHeight).endFill();
     }
 

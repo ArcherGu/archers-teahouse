@@ -50,10 +50,11 @@
             <div
                 class="share-modal-wrapper"
                 v-if="makeStep === 'ENJOY' && isShareModal"
-                @click="hideShareModal"
+                @click.self="hideShareModal"
             >
-                <div class="share-modal">
+                <div class="share-modal" @click="downloadImage">
                     <div class="share-note">长按图片进行保存</div>
+                    <div class="share-bg" :style="{ backgroundColor: bgColor }"></div>
                     <img :src="teaShareImg" alt="不上茶屋特供" class="share-img" />
                 </div>
             </div>
@@ -88,6 +89,29 @@ watch(
         }
     }
 )
+
+const base64ToBlob = (code: string) => {
+    const parts = code.split(';base64,');
+    const contentType = parts[0].split(':')[1];
+    const raw = window.atob(parts[1]);
+    const rawLength = raw.length;
+    const uInt8Array = new Uint8Array(rawLength);
+    for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+    }
+    return new Blob([uInt8Array], {
+        type: contentType
+    });
+}
+
+const downloadImage = () => {
+    if (!teaShareImg.value) return;
+    const aLink = document.createElement('a');
+    const blob = base64ToBlob(teaShareImg.value);
+    aLink.download = "不上茶饮";
+    aLink.href = URL.createObjectURL(blob);
+    aLink.click();
+}
 
 const shareTea = async () => {
     teaShareImg.value = teaRef.value.toImage();
@@ -135,19 +159,28 @@ const hideShareModal = () => {
     @apply absolute top-0 left-0 w-full h-full z-1000;
     .share-modal {
         @apply p-10px relative;
-        max-width: 350px;
+        max-width: 300px;
         transition: all 0.5s ease;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
 
         .share-note {
-            @apply absolute -bottom-35px w-full text-center;
+            @apply absolute bottom-10px z-50;
         }
 
         .share-img {
             position: relative;
             z-index: 10;
+        }
+
+        .share-bg {
+            @apply absolute z-6;
+            top: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            transform: rotate(5deg);
         }
 
         &::before {
