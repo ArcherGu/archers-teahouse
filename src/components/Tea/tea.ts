@@ -1,12 +1,12 @@
 import { CupSize } from "@/types";
-import { AbstractRenderer, autoDetectRenderer, Container, Graphics } from "pixi.js";
+import { AbstractRenderer, autoDetectRenderer, Container, Graphics, Sprite } from "pixi.js";
 import { Cup } from "./cup";
 import { gsap } from "@/plugins";
 import { Liquid } from "./liquid";
 import { bgColor, diyItems, makeStep, teaProps } from "@/store";
 import { BASE_TEA, CUP_HEIGHT, CUP_WIDTH } from "@/config";
 import { watch } from "vue";
-import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips, Straw } from "./items";
+import { IceCubes, Leaf, PearlBalls, Bubbles, CoconutFruitCubes, LemonChips, Straw, Slogan } from "./items";
 
 export class Tea {
     private renderer: AbstractRenderer;
@@ -23,6 +23,7 @@ export class Tea {
     private coconutFruitCubes: CoconutFruitCubes;
     private lemonChips: LemonChips;
     private straw: Straw;
+    private slogan: Slogan;
 
     constructor(wrapper: HTMLElement) {
         const { clientWidth: width, clientHeight: height } = wrapper;
@@ -63,6 +64,7 @@ export class Tea {
         this.coconutFruitCubes = new CoconutFruitCubes({ cupSize });
         this.lemonChips = new LemonChips({ cupSize });
         this.straw = new Straw(cupSize);
+        this.slogan = new Slogan(cupSize);
     }
 
     init() {
@@ -80,6 +82,7 @@ export class Tea {
             this.liquid,
             this.leaf,
             this.straw,
+            this.slogan,
             ...this.bubbles.items,
             ...this.iceCubes.items,
             ...this.pearlBalls.items,
@@ -112,6 +115,7 @@ export class Tea {
             this.coconutFruitCubes.changeCupSize(cupSize);
             this.lemonChips.changeCupSize(cupSize);
             this.straw.changeCupSize(cupSize);
+            this.slogan.changeCupSize(cupSize);
         })
 
         watch(() => teaProps.teaType, () => {
@@ -124,6 +128,7 @@ export class Tea {
 
         watch(makeStep, () => {
             this.straw.changeVisible(makeStep.value === 'ENJOY');
+            this.slogan.changeVisible(makeStep.value === 'ENJOY');
         })
 
         watch(() => diyItems, () => {
