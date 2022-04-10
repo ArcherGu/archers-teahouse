@@ -2,7 +2,7 @@
 // We suggest you to commit this file into source control
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     IAkarIconsArrowBack: typeof import('~icons/akar-icons/arrow-back')['default']
     IFaSolidPlus: typeof import('~icons/fa-solid/plus')['default']
