@@ -1,5 +1,5 @@
 import { CupSize } from "@/types";
-import { AbstractRenderer, autoDetectRenderer, Container, Graphics, Sprite } from "pixi.js";
+import { AbstractRenderer, autoDetectRenderer, Container, Graphics } from "pixi.js";
 import { Cup } from "./cup";
 import { gsap } from "@/plugins";
 import { Liquid } from "./liquid";
@@ -36,7 +36,7 @@ export class Tea {
         this.renderer = autoDetectRenderer({
             width,
             height,
-            antialias: true,
+            antialias: false, // github issues: https://github.com/pixijs/pixijs/issues/8183
             backgroundColor: this.backgroundColor,
             resolution: window.devicePixelRatio || 1,
             autoDensity: true,
@@ -50,7 +50,7 @@ export class Tea {
         this.imageBox.name = "imageBox";
         this.drawImageBox();
 
-        this.imageBox.addChild(this.container, this.imageInfo)
+        this.imageBox.addChild(this.container, this.imageInfo);
         this.imageContainer = new Container();
         this.imageContainer.addChild(this.imageBox);
 
@@ -105,8 +105,8 @@ export class Tea {
         watch(bgColor, (color) => {
             this.backgroundColor = parseInt(color.replace('#', ''), 16);
             this.renderer.backgroundColor = this.backgroundColor;
-            this.drawImageBox()
-        })
+            this.drawImageBox();
+        });
 
         watch(() => teaProps.cupSize, (cupSize) => {
             this.changeCupSize(cupSize);
@@ -118,7 +118,7 @@ export class Tea {
             this.lemonChips.changeCupSize(cupSize);
             this.straw.changeCupSize(cupSize);
             this.slogan.changeCupSize(cupSize);
-        })
+        });
 
         watch(() => teaProps.teaType, () => {
             const baseTea = BASE_TEA[teaProps.teaType];
@@ -131,7 +131,7 @@ export class Tea {
         watch(makeStep, () => {
             this.straw.changeVisible(makeStep.value === 'ENJOY');
             this.slogan.changeVisible(makeStep.value === 'ENJOY');
-        })
+        });
 
         watch(() => diyItems, () => {
             this.iceCubes.changeVisible(diyItems.some(e => e === 'Ice'));
@@ -141,7 +141,7 @@ export class Tea {
             this.straw.changeType(diyItems.some(e => e === 'Pearl' || e === 'CoconutFruit'));
 
             this.container.sortChildren();
-        }, { deep: true })
+        }, { deep: true });
     }
 
     resize(width: number, height: number) {
@@ -175,7 +175,7 @@ export class Tea {
             }
         );
 
-        this.imageInfo.updatePosition(this.imageBox.width, this.imageBox.height)
+        this.imageInfo.updatePosition(this.imageBox.width, this.imageBox.height);
     }
 
     animate() {
@@ -196,9 +196,9 @@ export class Tea {
 
     toImage() {
         this.imageInfo.changeVisible(true);
-        this.imageBox.scale.set(3, 3)
+        this.imageBox.scale.set(3, 3);
         const data = this.renderer.plugins.extract.image(this.imageContainer, "image/jpeg", 1).src;
-        this.imageBox.scale.set(1, 1)
+        this.imageBox.scale.set(1, 1);
         this.imageInfo.changeVisible(false);
         return data;
     }
