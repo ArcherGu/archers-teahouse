@@ -1,127 +1,130 @@
-<template>
-    <div class="h-full overflow-hidden" :style="{ background: bgColor }">
-        <div class="header p-10px relative">
-            <div class="mt-1">
-                <img :src="logo" alt="不上茶屋" class="h-40px" />
-
-                <div class="text-gray-400 ml-1 mt-1">
-                    假装这里有一家奶茶店
-                    <i-twemoji-rolling-on-the-floor-laughing class="inline-block mx-1" />
-                </div>
-                <div class="text-sm ml-1 mt-1 border-2 border-black rounded-5px inline-block pr-2">
-                    <div class="flex items-center">
-                        <i-icon-park-shop class="inline-block mx-1" v-if="!isHimself" />
-                        <i-icon-park-sleep class="inline-block mx-1" v-else />
-
-                        <span
-                            class="border-l-2 border-black pl-2"
-                        >{{ isHimself ? '请在梦中享受您的茶饮' : '这是一杯永远无法送达的茶饮' }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="absolute right-10px top-45px">
-                <WaySwitch v-model:value="isHimself" />
-            </div>
-        </div>
-        <transition name="slide-x">
-            <button
-                class="top-btn step-back-btn"
-                v-if="makeStep === 'DIY' || makeStep === 'ENJOY'"
-                @click="changeStep(makeStep === 'DIY' ? 'BASE' : 'DIY')"
-            >
-                <i-akar-icons-arrow-back />
-            </button>
-        </transition>
-
-        <BaseStep />
-        <DiyStep />
-        <EnjoyStep />
-        <div class="tea-wrapper">
-            <Tea ref="teaRef" />
-        </div>
-
-        <transition name="slide-x">
-            <button class="top-btn tea-share-btn" v-if="makeStep === 'ENJOY'" @click="shareTea">
-                <i-fluent-share-android-24-regular />
-            </button>
-        </transition>
-
-        <transition name="fade">
-            <div
-                class="share-modal-wrapper"
-                v-if="makeStep === 'ENJOY' && isShareModal"
-                @click.self="hideShareModal"
-            >
-                <div class="share-modal" @click="downloadImage">
-                    <div class="share-note">长按图片进行保存</div>
-                    <div class="share-bg" :style="{ backgroundColor: bgColor }"></div>
-                    <img :src="teaShareImg" alt="不上茶屋特供" class="share-img" />
-                </div>
-            </div>
-        </transition>
-
-        <div class="foot">
-            Made with
-            <i-noto-v1-red-heart class="inline-block mr-1" />by
-            <a target="_blank" href="https://archergu.me/">Archer Gu</a>
-        </div>
-    </div>
-</template>
-
 <script setup lang="ts">
-import { Tea, WaySwitch } from "./components";
-import { makeStep, changeStep, bgColor } from "./store";
-import logo from "@/assets/logo.png";
-import { ref, watch } from "vue";
-import { BaseStep, DiyStep, EnjoyStep } from "./steps";
+import { ref, watch } from 'vue'
+import { Tea, WaySwitch } from './components'
+import { bgColor, changeStep, makeStep } from './store'
+import { BaseStep, DiyStep, EnjoyStep } from './steps'
+import logo from '@/assets/logo.png'
 
-const isHimself = ref(false);
-const isShareModal = ref(false);
-const teaShareImg = ref<string>("");
-const teaRef = ref();
+const isHimself = ref(false)
+const isShareModal = ref(false)
+const teaShareImg = ref<string>('')
+const teaRef = ref()
 
 watch(
-    () => makeStep.value,
-    () => {
-        if (makeStep.value !== 'ENJOY') {
-            isShareModal.value = false;
-            teaShareImg.value = "";
-        }
+  () => makeStep.value,
+  () => {
+    if (makeStep.value !== 'ENJOY') {
+      isShareModal.value = false
+      teaShareImg.value = ''
     }
+  },
 )
 
 const base64ToBlob = (code: string) => {
-    const parts = code.split(';base64,');
-    const contentType = parts[0].split(':')[1];
-    const raw = window.atob(parts[1]);
-    const rawLength = raw.length;
-    const uInt8Array = new Uint8Array(rawLength);
-    for (let i = 0; i < rawLength; ++i) {
-        uInt8Array[i] = raw.charCodeAt(i);
-    }
-    return new Blob([uInt8Array], {
-        type: contentType
-    });
+  const parts = code.split(';base64,')
+  const contentType = parts[0].split(':')[1]
+  const raw = window.atob(parts[1])
+  const rawLength = raw.length
+  const uInt8Array = new Uint8Array(rawLength)
+  for (let i = 0; i < rawLength; ++i)
+    uInt8Array[i] = raw.charCodeAt(i)
+
+  return new Blob([uInt8Array], {
+    type: contentType,
+  })
 }
 
 const downloadImage = () => {
-    if (!teaShareImg.value) return;
-    const aLink = document.createElement('a');
-    const blob = base64ToBlob(teaShareImg.value);
-    aLink.download = "不上茶饮";
-    aLink.href = URL.createObjectURL(blob);
-    aLink.click();
+  if (!teaShareImg.value)
+    return
+  const aLink = document.createElement('a')
+  const blob = base64ToBlob(teaShareImg.value)
+  aLink.download = '不上茶饮'
+  aLink.href = URL.createObjectURL(blob)
+  aLink.click()
 }
 
 const shareTea = async () => {
-    teaShareImg.value = teaRef.value.toImage();
-    isShareModal.value = true
+  teaShareImg.value = teaRef.value.toImage()
+  isShareModal.value = true
 }
 
 const hideShareModal = () => {
-    isShareModal.value = false
+  isShareModal.value = false
 }
 </script>
+
+<template>
+  <div class="h-full overflow-hidden" :style="{ background: bgColor }">
+    <div class="header p-10px relative">
+      <div class="mt-1">
+        <img :src="logo" alt="不上茶屋" class="h-40px">
+
+        <div class="text-gray-400 ml-1 mt-1">
+          假装这里有一家奶茶店
+          <i-twemoji-rolling-on-the-floor-laughing class="inline-block mx-1" />
+        </div>
+        <div class="text-sm ml-1 mt-1 border-2 border-black rounded-5px inline-block pr-2">
+          <div class="flex items-center">
+            <i-icon-park-shop v-if="!isHimself" class="inline-block mx-1" />
+            <i-icon-park-sleep v-else class="inline-block mx-1" />
+
+            <span
+              class="border-l-2 border-black pl-2"
+            >{{ isHimself ? '请在梦中享受您的茶饮' : '这是一杯永远无法送达的茶饮' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="absolute right-10px top-45px">
+        <WaySwitch v-model:value="isHimself" />
+      </div>
+    </div>
+    <transition name="slide-x">
+      <button
+        v-if="makeStep === 'DIY' || makeStep === 'ENJOY'"
+        class="top-btn step-back-btn"
+        @click="changeStep(makeStep === 'DIY' ? 'BASE' : 'DIY')"
+      >
+        <i-akar-icons-arrow-back />
+      </button>
+    </transition>
+
+    <BaseStep />
+    <DiyStep />
+    <EnjoyStep />
+    <div class="tea-wrapper">
+      <Tea ref="teaRef" />
+    </div>
+
+    <transition name="slide-x">
+      <button v-if="makeStep === 'ENJOY'" class="top-btn tea-share-btn" @click="shareTea">
+        <i-fluent-share-android-24-regular />
+      </button>
+    </transition>
+
+    <transition name="fade">
+      <div
+        v-if="makeStep === 'ENJOY' && isShareModal"
+        class="share-modal-wrapper"
+        @click.self="hideShareModal"
+      >
+        <div class="share-modal" @click="downloadImage">
+          <div class="share-note">
+            长按图片进行保存
+          </div>
+          <div class="share-bg" :style="{ backgroundColor: bgColor }" />
+          <img :src="teaShareImg" alt="不上茶屋特供" class="share-img">
+        </div>
+      </div>
+    </transition>
+
+    <div class="foot">
+      Made with
+      <i-noto-v1-red-heart class="inline-block mr-1" />by
+      <a target="_blank" href="https://archergu.me/">Archer Gu</a>
+    </div>
+  </div>
+</template>
 
 <style lang="less">
 .header {
@@ -134,7 +137,7 @@ const hideShareModal = () => {
     transition: all 0.5s ease;
     padding-top: var(--header-height);
     padding-left: v-bind(
-        'makeStep === "BASE"? "var(--selector-item-height)" : "0px"'
+        'makeStep === "BASE" ? "var(--selector-item-height)" : "0px"'
     );
 
     #tea-share-box {
@@ -215,7 +218,7 @@ const hideShareModal = () => {
     line-height: 1.25rem;
     transition: all 0.5s ease;
     padding-left: v-bind(
-        'makeStep === "BASE"? "var(--selector-item-height)" : "0px"'
+        'makeStep === "BASE" ? "var(--selector-item-height)" : "0px"'
     );
 }
 

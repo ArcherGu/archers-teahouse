@@ -1,42 +1,46 @@
-<template>
-    <transition name="slide-x">
-        <div class="tea-type-selector" v-if="makeStep === 'BASE'">
-            <div class="tea-type-selector-wrapper">
-                <div
-                    v-for="item in BASE_TEA_ITEMS"
-                    class="tea-type-item cursor-pointer"
-                    :class="{ active: teaType === item.type }"
-                    :key="item.type"
-                    @click="triggerTeaType(item.type)"
-                >
-                    <div>
-                        <div class="flex-center">
-                            <component :is="item.icon" class="text-3xl <md:text-2xl" />
-                        </div>
-                        <div class="flex-center mt-2">{{ item.name }}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
-
-    <transition name="slide-y">
-        <button class="diy-btn" v-if="makeStep === 'BASE'" @click="changeStep('DIY')">开始定制</button>
-    </transition>
-</template>
-
 <script setup lang="ts">
-import { teaProps, makeStep, changeStep } from "@/store";
-import { BASE_TEA_ITEMS } from "@/config";
-import { TeaType } from "@/types";
-import { computed, toRefs } from "vue";
+import { computed, toRefs } from 'vue'
+import { changeStep, makeStep, teaProps } from '@/store'
+import { BASE_TEA_ITEMS } from '@/config'
+import type { TeaType } from '@/types'
 
 const triggerTeaType = (type: TeaType) => {
-    teaProps.teaType = type;
+  teaProps.teaType = type
 }
-const { teaType } = toRefs(teaProps);
-const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaProps.teaType));
+const { teaType } = toRefs(teaProps)
+const activeIndex = computed(() => BASE_TEA_ITEMS.findIndex(e => e.type === teaProps.teaType))
 </script>
+
+<template>
+  <transition name="slide-x">
+    <div v-if="makeStep === 'BASE'" class="tea-type-selector">
+      <div class="tea-type-selector-wrapper">
+        <div
+          v-for="item in BASE_TEA_ITEMS"
+          :key="item.type"
+          class="tea-type-item cursor-pointer"
+          :class="{ active: teaType === item.type }"
+          @click="triggerTeaType(item.type)"
+        >
+          <div>
+            <div class="flex-center">
+              <component :is="item.icon" class="text-3xl <md:text-2xl" />
+            </div>
+            <div class="flex-center mt-2">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+
+  <transition name="slide-y">
+    <button v-if="makeStep === 'BASE'" class="diy-btn" @click="changeStep('DIY')">
+      开始定制
+    </button>
+  </transition>
+</template>
 
 <style lang="less">
 .tea-type-selector {

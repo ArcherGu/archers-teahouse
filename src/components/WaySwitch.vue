@@ -1,29 +1,34 @@
-<template>
-    <div class="way-switch flex cursor-pointer" :class="{ enable: myVal }" @click="onChange">
-        <div class="w-1/2 flex-center z-100" :class="{ 'text-white': !value }">外送</div>
-        <div class="w-1/2 flex-center z-100" :class="{ 'text-white': value }">自取</div>
-    </div>
-</template>
-
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const props = defineProps({
-    value: {
-        type: Boolean,
-        default: false // false: 外送，true: 自取
-    }
-});
-
-const myVal = ref(props.value);
+  value: {
+    type: Boolean,
+    default: false, // false: 外送，true: 自取
+  },
+})
 
 const emit = defineEmits(['change', 'update:value'])
+
+const myVal = ref(props.value)
+
 const onChange = () => {
-    myVal.value = !myVal.value;
-    emit('change', myVal.value)
-    emit('update:value', myVal.value)
+  myVal.value = !myVal.value
+  emit('change', myVal.value)
+  emit('update:value', myVal.value)
 }
 </script>
+
+<template>
+  <div class="way-switch flex cursor-pointer" :class="{ enable: myVal }" @click="onChange">
+    <div class="w-1/2 flex-center z-100" :class="{ 'text-white': !value }">
+      外送
+    </div>
+    <div class="w-1/2 flex-center z-100" :class="{ 'text-white': value }">
+      自取
+    </div>
+  </div>
+</template>
 
 <style lang="less">
 .way-switch {

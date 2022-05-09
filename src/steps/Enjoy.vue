@@ -1,21 +1,21 @@
-<template>
-    <transition name="slide-y">
-        <div class="enjoy-bg-color-wrapper" v-if="makeStep === 'ENJOY'">
-            <div
-                class="enjoy-bg-color"
-                v-for="(color, index) in ENJOY_BG_COLOR"
-                :key="index"
-                :style="{ background: color }"
-                @click="changeBgColor(color)"
-            ></div>
-        </div>
-    </transition>
-</template>
-
 <script setup lang="ts">
-import { ENJOY_BG_COLOR } from "@/config";
-import { makeStep, changeBgColor } from "@/store";
+import { ENJOY_BG_COLOR } from '@/config'
+import { changeBgColor, makeStep } from '@/store'
 </script>
+
+<template>
+  <transition name="slide-y">
+    <div v-if="makeStep === 'ENJOY'" class="enjoy-bg-color-wrapper">
+      <div
+        v-for="(color, index) in ENJOY_BG_COLOR"
+        :key="index"
+        class="enjoy-bg-color"
+        :style="{ background: color }"
+        @click="changeBgColor(color)"
+      />
+    </div>
+  </transition>
+</template>
 
 <style lang="less">
 .enjoy-bg-color-wrapper {

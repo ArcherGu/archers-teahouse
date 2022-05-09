@@ -1,64 +1,65 @@
-<template>
-    <transition name="slide-x">
-        <div class="diy-items-selector" v-if="makeStep === 'DIY'">
-            <div
-                class="diy-items"
-                :class="{ active: diyItems.some(e => e === item.type) }"
-                v-for="item in DIY_ITEMS"
-                :key="item.type"
-                :style="`background: ${item.bgColor}`"
-                @click="changeDitItems(item.type)"
-            >
-                <i-fa-solid-plus class="mr-1 text-light-500 text-sm" />
-                <component :is="item.icon" class="icon" />
-            </div>
-        </div>
-    </transition>
-
-    <transition name="slide-x">
-        <div class="cup-size-selector" v-if="makeStep === 'DIY'">
-            <div
-                v-for="size in cupSizeArr"
-                :key="size"
-                class="cup-size-item"
-                :class="{ active: cupSize === size }"
-                @click="changeCupSize(size)"
-            >{{ size }}</div>
-        </div>
-    </transition>
-
-    <transition name="slide-y">
-        <button class="enjoy-btn" v-if="makeStep === 'DIY'" @click="changeStep('ENJOY')">
-            享用
-            <i-noto-v1-two-hearts class="absolute top-2 right-2 text-20px" />
-        </button>
-    </transition>
-</template>
-
 <script setup lang="ts">
-import { DIY_ITEMS } from "@/config";
-import { teaProps, makeStep, changeStep, diyItems } from "@/store";
-import { CupSize, DiyItems } from "@/types";
-import { toRefs } from "vue";
+import { toRefs } from 'vue'
+import { DIY_ITEMS } from '@/config'
+import { changeStep, diyItems, makeStep, teaProps } from '@/store'
+import type { CupSize, DiyItems } from '@/types'
 
 const cupSizeArr: CupSize[] = ['S', 'M', 'L']
 
 const changeCupSize = (size: CupSize) => {
-    teaProps.cupSize = size
+  teaProps.cupSize = size
 }
 
 const changeDitItems = (item: DiyItems) => {
-    const index = diyItems.findIndex(e => e === item);
-    if (index > -1) {
-        diyItems.splice(index, 1);
-    }
-    else {
-        diyItems.push(item)
-    }
+  const index = diyItems.findIndex(e => e === item)
+  if (index > -1)
+    diyItems.splice(index, 1)
+
+  else
+    diyItems.push(item)
 }
 
-const { cupSize } = toRefs(teaProps);
+const { cupSize } = toRefs(teaProps)
 </script>
+
+<template>
+  <transition name="slide-x">
+    <div v-if="makeStep === 'DIY'" class="diy-items-selector">
+      <div
+        v-for="item in DIY_ITEMS"
+        :key="item.type"
+        class="diy-items"
+        :class="{ active: diyItems.some(e => e === item.type) }"
+        :style="`background: ${item.bgColor}`"
+        @click="changeDitItems(item.type)"
+      >
+        <i-fa-solid-plus class="mr-1 text-light-500 text-sm" />
+        <component :is="item.icon" class="icon" />
+      </div>
+    </div>
+  </transition>
+
+  <transition name="slide-x">
+    <div v-if="makeStep === 'DIY'" class="cup-size-selector">
+      <div
+        v-for="size in cupSizeArr"
+        :key="size"
+        class="cup-size-item"
+        :class="{ active: cupSize === size }"
+        @click="changeCupSize(size)"
+      >
+        {{ size }}
+      </div>
+    </div>
+  </transition>
+
+  <transition name="slide-y">
+    <button v-if="makeStep === 'DIY'" class="enjoy-btn" @click="changeStep('ENJOY')">
+      享用
+      <i-noto-v1-two-hearts class="absolute top-2 right-2 text-20px" />
+    </button>
+  </transition>
+</template>
 
 <style lang="less">
 .diy-items-selector {
