@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { Tea, WaySwitch } from './components'
 import { bgColor, changeStep, makeStep } from './store'
 import { BaseStep, DiyStep, EnjoyStep } from './steps'
 import logo from '@/assets/logo.png'
+
+onMounted(async () => {
+  const { registerSW } = await import('virtual:pwa-register')
+  registerSW({ immediate: true })
+})
 
 const isHimself = ref(false)
 const isShareModal = ref(false)
@@ -26,8 +31,7 @@ const base64ToBlob = (code: string) => {
   const raw = window.atob(parts[1])
   const rawLength = raw.length
   const uInt8Array = new Uint8Array(rawLength)
-  for (let i = 0; i < rawLength; ++i)
-    uInt8Array[i] = raw.charCodeAt(i)
+  for (let i = 0; i < rawLength; ++i) uInt8Array[i] = raw.charCodeAt(i)
 
   return new Blob([uInt8Array], {
     type: contentType,
@@ -69,9 +73,9 @@ const hideShareModal = () => {
             <i-icon-park-shop v-if="!isHimself" class="inline-block mx-1" />
             <i-icon-park-sleep v-else class="inline-block mx-1" />
 
-            <span
-              class="border-l-2 border-black pl-2"
-            >{{ isHimself ? '请在梦中享受您的茶饮' : '这是一杯永远无法送达的茶饮' }}</span>
+            <span class="border-l-2 border-black pl-2">{{
+              isHimself ? '请在梦中享受您的茶饮' : '这是一杯永远无法送达的茶饮'
+            }}</span>
           </div>
         </div>
       </div>
@@ -103,11 +107,7 @@ const hideShareModal = () => {
     </transition>
 
     <transition name="fade">
-      <div
-        v-if="makeStep === 'ENJOY' && isShareModal"
-        class="share-modal-wrapper"
-        @click.self="hideShareModal"
-      >
+      <div v-if="makeStep === 'ENJOY' && isShareModal" class="share-modal-wrapper" @click.self="hideShareModal">
         <div class="share-modal" @click="downloadImage">
           <div class="share-note">
             长按图片进行保存
@@ -128,111 +128,107 @@ const hideShareModal = () => {
 
 <style lang="less">
 .header {
-    @apply shadow-md bg-white absolute top-0 left-0 w-full z-10;
-    height: var(--header-height);
+  @apply shadow-md bg-white absolute top-0 left-0 w-full z-10;
+  height: var(--header-height);
 }
 
 .tea-wrapper {
-    @apply flex items-center justify-center h-full w-full relative;
-    transition: all 0.5s ease;
-    padding-top: var(--header-height);
-    padding-left: v-bind(
-        'makeStep === "BASE" ? "var(--selector-item-height)" : "0px"'
-    );
+  @apply flex items-center justify-center h-full w-full relative;
+  transition: all 0.5s ease;
+  padding-top: var(--header-height);
+  padding-left: v-bind('makeStep === "BASE" ? "var(--selector-item-height)" : "0px"');
 
-    #tea-share-box {
-        position: relative;
-        padding: 100px;
-        --cup-perspective: 15px;
-        --cup-rotate-x: -1deg;
+  #tea-share-box {
+    position: relative;
+    padding: 100px;
+    --cup-perspective: 15px;
+    --cup-rotate-x: -1deg;
 
-        .slogan-img {
-            @apply absolute bottom-50px left-12 h-30px z-1000;
-            opacity: 0.6;
-        }
+    .slogan-img {
+      @apply absolute bottom-50px left-12 h-30px z-1000;
+      opacity: 0.6;
     }
+  }
 }
 
 .tea-share-btn {
-    @apply right-10px;
-    --slide-x-distance: translateX(100px);
+  @apply right-10px;
+  --slide-x-distance: translateX(100px);
 }
 
 .share-modal-wrapper {
-    @apply absolute top-0 left-0 w-full h-full z-1000;
-    .share-modal {
-        @apply p-10px relative;
-        max-width: 300px;
-        transition: all 0.5s ease;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+  @apply absolute top-0 left-0 w-full h-full z-1000;
+  .share-modal {
+    @apply p-10px relative;
+    max-width: 300px;
+    transition: all 0.5s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-        .share-note {
-            @apply absolute bottom-10px z-50;
-        }
-
-        .share-img {
-            position: relative;
-            z-index: 10;
-        }
-
-        .share-bg {
-            @apply absolute z-6;
-            top: 10px;
-            left: 10px;
-            width: calc(100% - 20px);
-            height: calc(100% - 20px);
-            transform: rotate(5deg);
-        }
-
-        &::before {
-            @apply absolute border-10 border-gray-400 border-double shadow-2xl bg-white z-5;
-            content: "";
-            width: 100%;
-            height: 100%;
-            top: 0px;
-            left: 0px;
-            transform: rotate(5deg);
-        }
-
-        &::after {
-            @apply absolute border-10 border-gray-400 border-double shadow-2xl bg-white z-8;
-            content: "";
-            width: 100%;
-            height: 100%;
-            top: 0px;
-            left: 0px;
-        }
+    .share-note {
+      @apply absolute bottom-10px z-50;
     }
+
+    .share-img {
+      position: relative;
+      z-index: 10;
+    }
+
+    .share-bg {
+      @apply absolute z-6;
+      top: 10px;
+      left: 10px;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      transform: rotate(5deg);
+    }
+
+    &::before {
+      @apply absolute border-10 border-gray-400 border-double shadow-2xl bg-white z-5;
+      content: '';
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      transform: rotate(5deg);
+    }
+
+    &::after {
+      @apply absolute border-10 border-gray-400 border-double shadow-2xl bg-white z-8;
+      content: '';
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+    }
+  }
 }
 
 .foot {
-    width: 100%;
-    position: absolute;
-    bottom: 10px;
-    text-align: center;
-    z-index: 99;
-    color: #71717a;
-    font-size: 0.7rem;
-    line-height: 1.25rem;
-    transition: all 0.5s ease;
-    padding-left: v-bind(
-        'makeStep === "BASE" ? "var(--selector-item-height)" : "0px"'
-    );
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  z-index: 99;
+  color: #71717a;
+  font-size: 0.7rem;
+  line-height: 1.25rem;
+  transition: all 0.5s ease;
+  padding-left: v-bind('makeStep === "BASE" ? "var(--selector-item-height)" : "0px"');
 }
 
 .foot a {
-    color: #52525b;
-    font-weight: inherit;
-    text-decoration: none;
-    border-bottom: 1px dotted rgba(125, 125, 125, 0.1);
-    transition: all 0.3s ease-in-out;
-    margin-left: 4px;
+  color: #52525b;
+  font-weight: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(125, 125, 125, 0.1);
+  transition: all 0.3s ease-in-out;
+  margin-left: 4px;
 }
 
 .foot a:hover {
-    color: #00aa90;
-    border-bottom: 1px dotted #00aa90;
+  color: #00aa90;
+  border-bottom: 1px dotted #00aa90;
 }
 </style>

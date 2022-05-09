@@ -25,6 +25,7 @@ specifiers:
   vue: ^3.2.33
   vue-tsc: ~0.34.11
   windicss: ^3.5.1
+  workbox-window: ^6.5.3
 
 dependencies:
   '@vueuse/core': 8.4.2_vue@3.2.33
@@ -53,6 +54,7 @@ devDependencies:
   vite-plugin-windicss: 1.8.4_vite@2.9.8
   vue-tsc: 0.34.11_typescript@4.6.4
   windicss: 3.5.1
+  workbox-window: 6.5.3
 
 packages:
 
